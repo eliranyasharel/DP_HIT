@@ -1,0 +1,12 @@
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\bin\Debug\facebookApi.exe.config
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\bin\Debug\facebookApi.exe
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\bin\Debug\facebookApi.pdb
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.csprojResolveAssemblyReference.cache
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.Properties.Resources.resources
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.csproj.GenerateResource.Cache
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.csproj.CoreCompileInputs.cache
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.exe
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.pdb
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\bin\Debug\Facebook.dll
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\bin\Debug\FbGraphApiWrapper.dll
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.Form1.resources
