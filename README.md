@@ -5,7 +5,7 @@
 Facebook fetures 
 
 * Filtering my fiends list by their relationship status 
-* Filtering my fiends list by their Relegation 
+* Filtering my fiends list by their relegation 
 
 
 
