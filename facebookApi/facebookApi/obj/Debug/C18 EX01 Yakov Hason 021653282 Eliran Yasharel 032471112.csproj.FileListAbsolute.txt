@@ -1,0 +1,10 @@
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\bin\Debug\facebookApi.exe.config
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\bin\Debug\facebookApi.exe
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\bin\Debug\facebookApi.pdb
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\obj\Debug\C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csprojResolveAssemblyReference.cache
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\obj\Debug\facebookApi.Form1.resources
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\obj\Debug\facebookApi.Properties.Resources.resources
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\obj\Debug\C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.GenerateResource.Cache
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\obj\Debug\C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CoreCompileInputs.cache
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\obj\Debug\facebookApi.exe
+C:\Users\kobis\Dropbox\facebookApi\facebookApi\obj\Debug\facebookApi.pdb
