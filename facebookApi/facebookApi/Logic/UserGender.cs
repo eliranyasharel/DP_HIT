@@ -13,11 +13,8 @@ namespace facebookApi.Logic
 
 
         private User m_User;
-
-
-
-
-        public string GetUserGender()
+        
+                public string GetUserGender()
         {
 
              string gender = null;
