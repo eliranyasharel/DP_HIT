@@ -135,6 +135,8 @@ namespace facebookApi
                 }
             }
 
+            m_filteredFriends.Items.Clear();
+
             foreach (User userToPresent in usersToPresent) {
                 m_filteredFriends.Items.Add(userToPresent.Name);
             }
