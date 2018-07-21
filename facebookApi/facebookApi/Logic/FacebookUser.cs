@@ -9,13 +9,6 @@ namespace facebookApi.Logic
 {
     public class FacebookUser
     {
-      
-        
-        public User User { private get; set; }
-
-
-
-
         
     }
 }

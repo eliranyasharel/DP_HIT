@@ -9,4 +9,4 @@ C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.exe
 C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.pdb
 C:\Users\kobis\Source\Repos\facebookApi\facebookApi\bin\Debug\Facebook.dll
 C:\Users\kobis\Source\Repos\facebookApi\facebookApi\bin\Debug\FbGraphApiWrapper.dll
-C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.Form1.resources
+C:\Users\kobis\Source\Repos\facebookApi\facebookApi\obj\Debug\facebookApi.MainAppForm.resources
