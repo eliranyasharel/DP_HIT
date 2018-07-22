@@ -194,7 +194,7 @@ namespace facebookApi
             filterCheckBoxChanged<User.eRelationshipStatus>(sender, r_relationshipStatusesToPresent);
         }
 
-        private void filterCheckBoxChanged<T>(object sender , ISet<T> setToEdit)
+        private void filterCheckBoxChanged<T>(object sender , ISet<T> setToEdit) where T : struct, System.IConvertible 
         {
             CheckBox checkbox = (CheckBox)sender;
 
