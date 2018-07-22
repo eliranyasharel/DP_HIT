@@ -104,7 +104,7 @@ namespace facebookApi
             {
                 foreach(User friend in m_LoggedInUser.Friends) 
                 {
-                    if (friend.Religion.Equals(religion.ToString())) 
+                    if (friend.Religion != null && friend.Religion.Equals(religion.ToString())) 
                     {
                         usersToPresent.Add(friend);
                     }
