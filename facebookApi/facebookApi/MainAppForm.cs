@@ -19,8 +19,8 @@ namespace facebookApi
         private readonly ISet<User.eRelationshipStatus> r_relationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
 
         private User m_LoggedInUser;
-        private readonly string k_ApplicationID = "228124338010525";
-        //private readonly string k_ApplicationID = "1450160541956417";
+        //private readonly string k_ApplicationID = "228124338010525";
+        private readonly string k_ApplicationID = "1450160541956417";
         private readonly string[] r_FaceboookPermissions = {"public_profile", "user_photos", "user_gender", "user_friends" };
 
         private void loginAndInit()
