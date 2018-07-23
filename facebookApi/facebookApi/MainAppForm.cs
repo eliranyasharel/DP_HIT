@@ -3,7 +3,8 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Collections.Generic;
-using System.Collections;
+using System.Linq;
+using System.Drawing;
 
 namespace facebookApi
 {
@@ -89,6 +90,9 @@ namespace facebookApi
         public MainAppForm()
         {
             InitializeComponent();
+            generateCheckBoxesandAddToGroupBox<User.eRelationshipStatus>(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_relationshipStatusFilterGroupBox);
+            generateCheckBoxesandAddToGroupBox<eReligion>(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_religionFilterGroupBox);
+            generateCheckBoxesandAddToGroupBox<User.eGender>(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_genderFilterGroupBox);
         }
 
         private void loginButton_Click(object sender, EventArgs e)
@@ -209,5 +213,29 @@ namespace facebookApi
                 setToEdit.Remove(value);
             }
         }
+
+        private void generateCheckBoxesandAddToGroupBox<T>(List<T> a, GroupBox groupBox) where T : struct, System.IConvertible
+        {
+            int checkBoxLocationX = 6;
+            int checkBoxLocationYStart = 21;
+
+            int i = 0;
+
+            foreach (T value in a)
+            {
+                CheckBox checkBox = new CheckBox();
+                checkBox.AutoSize = true;
+                checkBox.Location = new Point(checkBoxLocationX, checkBoxLocationYStart + (i * 23));
+                checkBox.Name = value.ToString();
+                checkBox.TabIndex = i + 1;
+                checkBox.Text = value.ToString();
+                checkBox.UseVisualStyleBackColor = true;
+                checkBox.CheckedChanged += new EventHandler(this.relationshipStatus_CheckedChanged);
+                groupBox.Controls.Add(checkBox);
+                i++;
+            }
+        }
+
+
     }
 }
