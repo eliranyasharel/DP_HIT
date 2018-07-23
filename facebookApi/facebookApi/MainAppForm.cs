@@ -38,6 +38,8 @@ namespace facebookApi
                     this.fetchUserInfo();
                     this.enableControls();
                     this.fetchFriends();
+                    this.m_loginButton.Enabled = false;
+                    this.m_logoutButton.Enabled = true;
                 }
                 else
                 {
@@ -83,21 +85,33 @@ namespace facebookApi
         private void enableControls()
         {
             this.m_loggedInUserPictureBox.Visible = true;
-            this.m_loginButton.Visible = false;
+            this.m_loginButton.Enabled = false;
+            this.m_logoutButton.Enabled = true;
             this.m_friendPictureBox.Visible = true;
         }
 
         public MainAppForm()
         {
             InitializeComponent();
-            generateCheckBoxesandAddToGroupBox<User.eRelationshipStatus>(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_relationshipStatusFilterGroupBox);
-            generateCheckBoxesandAddToGroupBox<eReligion>(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_religionFilterGroupBox);
-            generateCheckBoxesandAddToGroupBox<User.eGender>(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_genderFilterGroupBox);
+            generateCheckBoxesandAddToGroupBox<User.eRelationshipStatus>(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_relationshipStatusFilterGroupBox, new EventHandler(this.relationshipStatus_CheckedChanged));
+            generateCheckBoxesandAddToGroupBox<eReligion>(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_religionFilterGroupBox, new EventHandler(this.religion_CheckedChanged));
+            generateCheckBoxesandAddToGroupBox<User.eGender>(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_genderFilterGroupBox, new EventHandler(this.gender_CheckedChanged));
         }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
             this.loginAndInit();
+        }
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            FacebookService.Logout(postLogout);
+        }
+
+        private void postLogout()
+        {
+            m_loginButton.Enabled = true;
+            m_logoutButton.Enabled = false;
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -214,7 +228,7 @@ namespace facebookApi
             }
         }
 
-        private void generateCheckBoxesandAddToGroupBox<T>(List<T> a, GroupBox groupBox) where T : struct, System.IConvertible
+        private void generateCheckBoxesandAddToGroupBox<T>(List<T> a, GroupBox groupBox, EventHandler eventHandler) where T : struct, System.IConvertible
         {
             int checkBoxLocationX = 6;
             int checkBoxLocationYStart = 21;
@@ -230,7 +244,7 @@ namespace facebookApi
                 checkBox.TabIndex = i + 1;
                 checkBox.Text = value.ToString();
                 checkBox.UseVisualStyleBackColor = true;
-                checkBox.CheckedChanged += new EventHandler(this.relationshipStatus_CheckedChanged);
+                checkBox.CheckedChanged += eventHandler;
                 groupBox.Controls.Add(checkBox);
                 i++;
             }

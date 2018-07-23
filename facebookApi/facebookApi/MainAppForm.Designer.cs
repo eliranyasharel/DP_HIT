@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-using System.Drawing;
+﻿using System.Windows.Forms;
 using System.ComponentModel;
 
 using System.Linq;
@@ -35,177 +33,206 @@ namespace facebookApi
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_components = new Container();
-            this.m_loginButton = new Button();
-            this.m_userDetailsBox = new GroupBox();
-            this.m_userNameLabel = new Label();
-            this.m_loggedInUserPictureBox = new PictureBox();
-            this.m_filteredFriends = new ListBox();
-            this.m_filtersHeadlineLabel = new Label();
-            this.m_searchButton = new Button();
-            this.m_relationshipStatusFilterGroupBox = new GroupBox();
-            this.m_religionFilterGroupBox = new GroupBox();
-            this.m_genderFilterGroupBox = new GroupBox();
-            this.m_friendsBindingSource = new BindingSource(this.m_components);
-            this.m_friendPictureBox = new PictureBox();
-            this.m_friendslistBox = new ListBox();
-            this.m_resultsLabel = new Label();
+            this.components = new System.ComponentModel.Container();
+            this.m_loginButton = new System.Windows.Forms.Button();
+            this.m_logoutButton = new System.Windows.Forms.Button();
+            this.m_userDetailsBox = new System.Windows.Forms.GroupBox();
+            this.m_userNameLabel = new System.Windows.Forms.Label();
+            this.m_loggedInUserPictureBox = new System.Windows.Forms.PictureBox();
+            this.m_filteredFriends = new System.Windows.Forms.ListBox();
+            this.m_filtersHeadlineLabel = new System.Windows.Forms.Label();
+            this.m_searchButton = new System.Windows.Forms.Button();
+            this.m_relationshipStatusFilterGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_religionFilterGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_genderFilterGroupBox = new System.Windows.Forms.GroupBox();
+            this.m_friendsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.m_friendPictureBox = new System.Windows.Forms.PictureBox();
+            this.m_friendslistBox = new System.Windows.Forms.ListBox();
+            this.m_resultsLabel = new System.Windows.Forms.Label();
             this.m_userDetailsBox.SuspendLayout();
-            ((ISupportInitialize)(this.m_loggedInUserPictureBox)).BeginInit();
-            this.m_relationshipStatusFilterGroupBox.SuspendLayout();
-            this.m_religionFilterGroupBox.SuspendLayout();
-            this.m_genderFilterGroupBox.SuspendLayout();
-            ((ISupportInitialize)(this.m_friendsBindingSource)).BeginInit();
-            ((ISupportInitialize)(this.m_friendPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_loggedInUserPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_friendsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_friendPictureBox)).BeginInit();
             this.SuspendLayout();
-
             // 
-            // loginButton
+            // m_loginButton
             // 
-            this.m_loginButton.Location = new Point(14, 16);
-            this.m_loginButton.Name = "loginButton";
             this.m_loginButton.AutoSize = true;
-            this.m_loginButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.m_loginButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_loginButton.Location = new System.Drawing.Point(23, 26);
+            this.m_loginButton.Margin = new System.Windows.Forms.Padding(4);
+            this.m_loginButton.Name = "m_loginButton";
+            this.m_loginButton.Size = new System.Drawing.Size(53, 27);
             this.m_loginButton.TabIndex = 0;
             this.m_loginButton.Text = "Login";
             this.m_loginButton.UseVisualStyleBackColor = true;
-            this.m_loginButton.Click += new EventHandler(this.loginButton_Click);
-
+            this.m_loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
-            // userDetailsBox
+            // m_logoutButton
             // 
-            this.m_userDetailsBox.BackColor = SystemColors.Window;
+            this.m_logoutButton.AutoSize = true;
+            this.m_logoutButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_logoutButton.Enabled = false;
+            this.m_logoutButton.Location = new System.Drawing.Point(23, 61);
+            this.m_logoutButton.Margin = new System.Windows.Forms.Padding(4);
+            this.m_logoutButton.Name = "m_logoutButton";
+            this.m_logoutButton.Size = new System.Drawing.Size(62, 27);
+            this.m_logoutButton.TabIndex = 0;
+            this.m_logoutButton.Text = "Logout";
+            this.m_logoutButton.UseVisualStyleBackColor = true;
+            this.m_logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
+            // 
+            // m_userDetailsBox
+            // 
+            this.m_userDetailsBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_userDetailsBox.Controls.Add(this.m_userNameLabel);
             this.m_userDetailsBox.Controls.Add(this.m_loggedInUserPictureBox);
-            this.m_userDetailsBox.Controls.Add(this.m_loginButton);
-            this.m_userDetailsBox.Location = new Point(34, 21);
-            this.m_userDetailsBox.Name = "userDetailsBox";
-            this.m_userDetailsBox.Size = new Size(127, 177);
+            this.m_userDetailsBox.Location = new System.Drawing.Point(95, 26);
+            this.m_userDetailsBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_userDetailsBox.Name = "m_userDetailsBox";
+            this.m_userDetailsBox.Padding = new System.Windows.Forms.Padding(4);
+            this.m_userDetailsBox.Size = new System.Drawing.Size(169, 218);
             this.m_userDetailsBox.TabIndex = 1;
             this.m_userDetailsBox.TabStop = false;
             this.m_userDetailsBox.Text = "User Details";
-
             // 
-            // userName
+            // m_userNameLabel
             // 
             this.m_userNameLabel.AutoSize = true;
-            this.m_userNameLabel.Location = new Point(6, 42);
-            this.m_userNameLabel.Name = "userNameLabel";
-            this.m_userNameLabel.Size = new Size(60, 13);
+            this.m_userNameLabel.Location = new System.Drawing.Point(8, 52);
+            this.m_userNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_userNameLabel.Name = "m_userNameLabel";
+            this.m_userNameLabel.Size = new System.Drawing.Size(79, 17);
             this.m_userNameLabel.TabIndex = 2;
             this.m_userNameLabel.Text = "User Name";
-
             // 
-            // loggedInUserPictureBox
+            // m_loggedInUserPictureBox
             // 
-            this.m_loggedInUserPictureBox.Location = new Point(14, 58);
-            this.m_loggedInUserPictureBox.Name = "loggedInUserPictureBox";
-            this.m_loggedInUserPictureBox.Size = new Size(100, 109);
+            this.m_loggedInUserPictureBox.Location = new System.Drawing.Point(19, 71);
+            this.m_loggedInUserPictureBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_loggedInUserPictureBox.Name = "m_loggedInUserPictureBox";
+            this.m_loggedInUserPictureBox.Size = new System.Drawing.Size(133, 134);
             this.m_loggedInUserPictureBox.TabIndex = 1;
             this.m_loggedInUserPictureBox.TabStop = false;
-
             // 
-            // filteredFrinds
+            // m_filteredFriends
             // 
             this.m_filteredFriends.FormattingEnabled = true;
-            this.m_filteredFriends.Location = new Point(560, 370);
-            this.m_filteredFriends.Name = "filteredFrinds";
-            this.m_filteredFriends.Size = new Size(95, 160);
+            this.m_filteredFriends.ItemHeight = 16;
+            this.m_filteredFriends.Location = new System.Drawing.Point(747, 455);
+            this.m_filteredFriends.Margin = new System.Windows.Forms.Padding(4);
+            this.m_filteredFriends.Name = "m_filteredFriends";
+            this.m_filteredFriends.Size = new System.Drawing.Size(125, 196);
             this.m_filteredFriends.TabIndex = 2;
-
             // 
-            // filtersHeadlineLabel
+            // m_filtersHeadlineLabel
             // 
             this.m_filtersHeadlineLabel.AutoSize = true;
-            this.m_filtersHeadlineLabel.Location = new Point(482, 21);
-            this.m_filtersHeadlineLabel.Name = "filtersHeadlineLabel";
+            this.m_filtersHeadlineLabel.Location = new System.Drawing.Point(643, 26);
+            this.m_filtersHeadlineLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_filtersHeadlineLabel.Name = "m_filtersHeadlineLabel";
+            this.m_filtersHeadlineLabel.Size = new System.Drawing.Size(155, 17);
             this.m_filtersHeadlineLabel.TabIndex = 3;
             this.m_filtersHeadlineLabel.Text = "Please select your filter";
-
             // 
-            // searchButton
+            // m_searchButton
             // 
-            this.m_searchButton.Location = new Point(412, 260);
-            this.m_searchButton.Name = "searchButton";
             this.m_searchButton.AutoSize = true;
-            this.m_searchButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.m_searchButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_searchButton.Location = new System.Drawing.Point(606, 320);
+            this.m_searchButton.Margin = new System.Windows.Forms.Padding(4);
+            this.m_searchButton.Name = "m_searchButton";
+            this.m_searchButton.Size = new System.Drawing.Size(63, 27);
             this.m_searchButton.TabIndex = 6;
             this.m_searchButton.Text = "Search";
             this.m_searchButton.UseVisualStyleBackColor = true;
-            this.m_searchButton.Click += new EventHandler(this.searchButton_Click);
-
+            this.m_searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
-            // relationshipStatusFilterGroupBox
+            // m_relationshipStatusFilterGroupBox
             // 
-            this.m_relationshipStatusFilterGroupBox.BackColor = SystemColors.Window;
-            this.m_relationshipStatusFilterGroupBox.Location = new Point(560, 37);
-            this.m_relationshipStatusFilterGroupBox.Name = "relationshipStatusFilterGroupBox";
             this.m_relationshipStatusFilterGroupBox.AutoSize = true;
-            this.m_relationshipStatusFilterGroupBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.m_relationshipStatusFilterGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_relationshipStatusFilterGroupBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_relationshipStatusFilterGroupBox.Location = new System.Drawing.Point(747, 46);
+            this.m_relationshipStatusFilterGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_relationshipStatusFilterGroupBox.MinimumSize = new System.Drawing.Size(180, 123);
+            this.m_relationshipStatusFilterGroupBox.Name = "m_relationshipStatusFilterGroupBox";
+            this.m_relationshipStatusFilterGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.m_relationshipStatusFilterGroupBox.Size = new System.Drawing.Size(180, 123);
             this.m_relationshipStatusFilterGroupBox.TabIndex = 11;
             this.m_relationshipStatusFilterGroupBox.TabStop = false;
             this.m_relationshipStatusFilterGroupBox.Text = "Relationship Status Filter";
-
             // 
-            // religionFilterGroupBox
+            // m_religionFilterGroupBox
             // 
-            this.m_religionFilterGroupBox.BackColor = SystemColors.Window;
-            this.m_religionFilterGroupBox.Location = new Point(412, 37);
-            this.m_religionFilterGroupBox.Name = "religionFilterGroupBox";
             this.m_religionFilterGroupBox.AutoSize = true;
-            this.m_religionFilterGroupBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.m_religionFilterGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_religionFilterGroupBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_religionFilterGroupBox.Location = new System.Drawing.Point(606, 46);
+            this.m_religionFilterGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_religionFilterGroupBox.MinimumSize = new System.Drawing.Size(120, 123);
+            this.m_religionFilterGroupBox.Name = "m_religionFilterGroupBox";
+            this.m_religionFilterGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.m_religionFilterGroupBox.Size = new System.Drawing.Size(120, 123);
             this.m_religionFilterGroupBox.TabIndex = 12;
             this.m_religionFilterGroupBox.TabStop = false;
             this.m_religionFilterGroupBox.Text = "Religion Filter";
-
             // 
-            // genderFilterGroupBox
+            // m_genderFilterGroupBox
             // 
-            this.m_genderFilterGroupBox.BackColor = SystemColors.Window;
-            this.m_genderFilterGroupBox.Location = new Point(412, 154);
-            this.m_genderFilterGroupBox.Name = "genderFilterGroupBox";
             this.m_genderFilterGroupBox.AutoSize = true;
-            this.m_genderFilterGroupBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.m_genderFilterGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_genderFilterGroupBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_genderFilterGroupBox.Location = new System.Drawing.Point(606, 189);
+            this.m_genderFilterGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_genderFilterGroupBox.MinimumSize = new System.Drawing.Size(120, 123);
+            this.m_genderFilterGroupBox.Name = "m_genderFilterGroupBox";
+            this.m_genderFilterGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.m_genderFilterGroupBox.Size = new System.Drawing.Size(120, 123);
             this.m_genderFilterGroupBox.TabIndex = 13;
             this.m_genderFilterGroupBox.TabStop = false;
             this.m_genderFilterGroupBox.Text = "Gender Filter";
-
             // 
-            // friendPictureBox
+            // m_friendPictureBox
             // 
-            this.m_friendPictureBox.BackColor = SystemColors.Window;
-            this.m_friendPictureBox.Location = new Point(285, 21);
-            this.m_friendPictureBox.Name = "friendPictureBox";
-            this.m_friendPictureBox.Size = new Size(105, 93);
+            this.m_friendPictureBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_friendPictureBox.Location = new System.Drawing.Point(446, 26);
+            this.m_friendPictureBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_friendPictureBox.Name = "m_friendPictureBox";
+            this.m_friendPictureBox.Size = new System.Drawing.Size(140, 114);
             this.m_friendPictureBox.TabIndex = 15;
             this.m_friendPictureBox.TabStop = false;
-
             // 
-            // friendslistBox
+            // m_friendslistBox
             // 
             this.m_friendslistBox.FormattingEnabled = true;
-            this.m_friendslistBox.Location = new Point(184, 21);
-            this.m_friendslistBox.Name = "friendslistBox";
-            this.m_friendslistBox.Size = new Size(95, 147);
+            this.m_friendslistBox.ItemHeight = 16;
+            this.m_friendslistBox.Location = new System.Drawing.Point(301, 26);
+            this.m_friendslistBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_friendslistBox.Name = "m_friendslistBox";
+            this.m_friendslistBox.Size = new System.Drawing.Size(125, 180);
             this.m_friendslistBox.TabIndex = 17;
-            this.m_friendslistBox.SelectedIndexChanged += new EventHandler(this.friendslistBox_SelectedIndexChanged);
-
+            this.m_friendslistBox.SelectedIndexChanged += new System.EventHandler(this.friendslistBox_SelectedIndexChanged);
             // 
-            // resultsLabel
+            // m_resultsLabel
             // 
             this.m_resultsLabel.AutoSize = true;
-            this.m_resultsLabel.Location = new Point(582, 350);
-            this.m_resultsLabel.Name = "resultsLabel";
-            this.m_resultsLabel.Size = new Size(42, 13);
+            this.m_resultsLabel.Location = new System.Drawing.Point(776, 431);
+            this.m_resultsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_resultsLabel.Name = "m_resultsLabel";
+            this.m_resultsLabel.Size = new System.Drawing.Size(55, 17);
             this.m_resultsLabel.TabIndex = 18;
             this.m_resultsLabel.Text = "Results";
-
             // 
             // MainAppForm
             // 
-            this.AutoScaleDimensions = new SizeF(6F, 13F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(729, 388);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(972, 478);
+            this.Controls.Add(this.m_loginButton);
+            this.Controls.Add(this.m_logoutButton);
             this.Controls.Add(this.m_resultsLabel);
             this.Controls.Add(this.m_friendslistBox);
             this.Controls.Add(this.m_friendPictureBox);
@@ -216,26 +243,23 @@ namespace facebookApi
             this.Controls.Add(this.m_filtersHeadlineLabel);
             this.Controls.Add(this.m_filteredFriends);
             this.Controls.Add(this.m_userDetailsBox);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainAppForm";
             this.Text = "MainAppForm";
-            this.AutoSize = true;
-            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.m_userDetailsBox.ResumeLayout(false);
             this.m_userDetailsBox.PerformLayout();
-            ((ISupportInitialize)(this.m_loggedInUserPictureBox)).EndInit();
-            this.m_relationshipStatusFilterGroupBox.ResumeLayout(false);
-            this.m_relationshipStatusFilterGroupBox.PerformLayout();
-            this.m_religionFilterGroupBox.ResumeLayout(false);
-            this.m_religionFilterGroupBox.PerformLayout();
-            ((ISupportInitialize)(this.m_friendsBindingSource)).EndInit();
-            ((ISupportInitialize)(this.m_friendPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_loggedInUserPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_friendsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_friendPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
 
         private Button m_loginButton;
+        private Button m_logoutButton;
         private GroupBox m_userDetailsBox;
         private PictureBox m_loggedInUserPictureBox;
         private ListBox m_filteredFriends;
@@ -249,6 +273,7 @@ namespace facebookApi
         private PictureBox m_friendPictureBox;
         private ListBox m_friendslistBox;
         private Label m_resultsLabel;
+        private IContainer components;
     }
 }
 
