@@ -49,6 +49,9 @@ namespace facebookApi
             this.m_friendPictureBox = new System.Windows.Forms.PictureBox();
             this.m_friendslistBox = new System.Windows.Forms.ListBox();
             this.m_resultsLabel = new System.Windows.Forms.Label();
+            this.m_postLabel = new System.Windows.Forms.Label();
+            this.m_postTextBox = new System.Windows.Forms.TextBox();
+            this.m_postButton = new System.Windows.Forms.Button();
             this.m_userDetailsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_loggedInUserPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_friendsBindingSource)).BeginInit();
@@ -224,6 +227,39 @@ namespace facebookApi
             this.m_resultsLabel.TabIndex = 18;
             this.m_resultsLabel.Text = "Results";
             // 
+            // m_postLabel
+            // 
+            this.m_postLabel.AutoSize = true;
+            this.m_postLabel.Location = new System.Drawing.Point(95, 270);
+            this.m_postLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_postLabel.Name = "m_postLabel";
+            this.m_postLabel.Size = new System.Drawing.Size(55, 17);
+            this.m_postLabel.TabIndex = 19;
+            this.m_postLabel.Text = "Post text";
+            // 
+            // m_postTextBox
+            // 
+            this.m_postTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_postTextBox.Location = new System.Drawing.Point(95, 290);
+            this.m_postTextBox.Name = "m_postTextBox";
+            this.m_postTextBox.Size = new System.Drawing.Size(300, 300);
+            this.m_postTextBox.Multiline = true;
+            this.m_postTextBox.TabIndex = 20;
+            this.m_postTextBox.TabStop = false;
+            // 
+            // m_postButton
+            // 
+            this.m_postButton.AutoSize = true;
+            this.m_postButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_postButton.Location = new System.Drawing.Point(95, 600);
+            this.m_postButton.Margin = new System.Windows.Forms.Padding(4);
+            this.m_postButton.Name = "m_postButton";
+            this.m_postButton.Size = new System.Drawing.Size(53, 27);
+            this.m_postButton.TabIndex = 0;
+            this.m_postButton.Text = "Post";
+            this.m_postButton.UseVisualStyleBackColor = true;
+            this.m_postButton.Click += new System.EventHandler(this.postButton_Click);
+            // 
             // MainAppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -243,6 +279,9 @@ namespace facebookApi
             this.Controls.Add(this.m_filtersHeadlineLabel);
             this.Controls.Add(this.m_filteredFriends);
             this.Controls.Add(this.m_userDetailsBox);
+            this.Controls.Add(this.m_postLabel);
+            this.Controls.Add(this.m_postTextBox);
+            this.Controls.Add(this.m_postButton);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainAppForm";
             this.Text = "MainAppForm";
@@ -273,6 +312,9 @@ namespace facebookApi
         private PictureBox m_friendPictureBox;
         private ListBox m_friendslistBox;
         private Label m_resultsLabel;
+        private Label m_postLabel;
+        private TextBox m_postTextBox;
+        private Button m_postButton;
         private IContainer components;
     }
 }

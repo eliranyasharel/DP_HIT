@@ -112,6 +112,7 @@ namespace facebookApi
         {
             m_loginButton.Enabled = true;
             m_logoutButton.Enabled = false;
+            m_LoggedInUser = null;
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -155,6 +156,18 @@ namespace facebookApi
 
             foreach (User userToPresent in usersToPresent) {
                 m_filteredFriends.Items.Add(userToPresent.Name);
+            }
+        }
+
+        private void postButton_Click(object sender, EventArgs e)
+        {
+            string postText = m_postTextBox.Text;
+
+            if (string.IsNullOrEmpty(postText)) {
+                MessageBox.Show("Adding an empty post is not allowed!!!");
+            } else {
+                Status postedStatus = m_LoggedInUser.PostStatus(postText);
+                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
             }
         }
 
