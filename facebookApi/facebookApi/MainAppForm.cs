@@ -12,21 +12,27 @@ namespace facebookApi
     {
         public enum eReligion
         {
-            Christian, Muslim, Jewish
+            Christian,
+            Muslim,
+            Jewish
         }
+
+        private const int k_CheckBoxLocationX = 6;
+        private const int k_CheckBoxLocationYStart = 21;
+        private const int k_CheckBoxLocationYDiff = 23;
+        private const string k_ApplicationID = "1450160541956417";
+        //private const string k_ApplicationID = "228124338010525"; // Commented out so the grader will be able to use it if he/she wants
 
         private readonly ISet<eReligion> r_religionsToPresent = new HashSet<eReligion>();
         private readonly ISet<User.eGender> r_genderToPresent = new HashSet<User.eGender>();
         private readonly ISet<User.eRelationshipStatus> r_relationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
+        private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
         private User m_LoggedInUser;
-        //private readonly string k_ApplicationID = "228124338010525";
-        private readonly string k_ApplicationID = "1450160541956417";
-        private readonly string[] r_FaceboookPermissions = {"public_profile", "user_photos", "user_gender", "user_friends", "publish_actions"};
 
         private void loginAndInit()
         {
-            this.m_filtersHeadlineLabel.Visible = true;
+            m_FiltersHeadlineLabel.Visible = true;
 
             try
             {
@@ -34,12 +40,9 @@ namespace facebookApi
 
                 if (!string.IsNullOrEmpty(result.AccessToken))
                 {
-                    this.m_LoggedInUser = result.LoggedInUser;
-                    this.fetchUserInfo();
-                    this.enableControls();
-                    this.fetchFriends();
-                    this.m_loginButton.Enabled = false;
-                    this.m_logoutButton.Enabled = true;
+                    m_LoggedInUser = result.LoggedInUser;
+                    fetchUserInfo();
+                    flipControls();
                 }
                 else
                 {
@@ -52,20 +55,19 @@ namespace facebookApi
                 MessageBox.Show(string.Format("Error with login: \n{0}", e.Message));
             }
 
-            this.m_filtersHeadlineLabel.Visible = false;
+            m_FiltersHeadlineLabel.Visible = false;
         }
 
         private void fetchUserInfo()
         {
-            this.m_loggedInUserPictureBox.LoadAsync(this.m_LoggedInUser.PictureNormalURL);
+            m_LoggedInUserPictureBox.LoadAsync(m_LoggedInUser.PictureNormalURL);
 
-            if (this.m_LoggedInUser.Statuses != null && this.m_LoggedInUser.Statuses.Count > 0)
+            if (m_LoggedInUser.Statuses != null && m_LoggedInUser.Statuses.Count > 0)
             {
-                this.m_loggedInUserPictureBox.Text = this.m_LoggedInUser.Statuses[0].Message;
+                m_LoggedInUserPictureBox.Text = m_LoggedInUser.Statuses[0].Message;
             }
 
-            this.m_userNameLabel.Text = string.Format("Welcome  {0} {1}", this.m_LoggedInUser.FirstName, this.m_LoggedInUser.LastName);
-            this.enableControls();
+            m_UserNameLabel.Text = string.Format("Welcome  {0} {1}", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
 
         }
 
@@ -82,40 +84,42 @@ namespace facebookApi
             }
         }
 
-        private void enableControls()
+        private void flipControls()
         {
-            this.m_loggedInUserPictureBox.Visible = true;
-            this.m_loginButton.Enabled = false;
-            this.m_logoutButton.Enabled = true;
-            this.m_friendPictureBox.Visible = true;
+            m_LoggedInUserPictureBox.Visible = !m_LoggedInUserPictureBox.Visible;
+            m_LoginButton.Enabled = !m_LoginButton.Enabled;
+            m_LogoutButton.Enabled = !m_LogoutButton.Enabled;
+            m_FetchFriendsButton.Enabled = !m_FetchFriendsButton.Enabled;
+            m_PostButton.Enabled = !m_PostButton.Enabled;
+            m_SearchButton.Enabled = !m_SearchButton.Enabled;
+            m_FriendPictureBox.Visible = !m_FriendPictureBox.Visible;
         }
 
         public MainAppForm()
         {
             InitializeComponent();
-            generateCheckBoxesandAddToGroupBox<User.eRelationshipStatus>(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_relationshipStatusFilterGroupBox, new EventHandler(this.relationshipStatus_CheckedChanged));
-            generateCheckBoxesandAddToGroupBox<eReligion>(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_religionFilterGroupBox, new EventHandler(this.religion_CheckedChanged));
-            generateCheckBoxesandAddToGroupBox<User.eGender>(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_genderFilterGroupBox, new EventHandler(this.gender_CheckedChanged));
+            generateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_RelationshipStatusFilterGroupBox, new EventHandler(relationshipStatus_CheckedChanged));
+            generateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_ReligionFilterGroupBox, new EventHandler(religion_CheckedChanged));
+            generateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_GenderFilterGroupBox, new EventHandler(gender_CheckedChanged));
         }
 
-        private void loginButton_Click(object sender, EventArgs e)
+        private void loginButton_Click(object i_Sender, EventArgs i_EventArgs)
         {
-            this.loginAndInit();
+            loginAndInit();
         }
 
-        private void logoutButton_Click(object sender, EventArgs e)
+        private void logoutButton_Click(object i_Sender, EventArgs i_EventArgs)
         {
             FacebookService.Logout(postLogout);
         }
 
         private void postLogout()
         {
-            m_loginButton.Enabled = true;
-            m_logoutButton.Enabled = false;
             m_LoggedInUser = null;
+            flipControls();
         }
 
-        private void searchButton_Click(object sender, EventArgs e)
+        private void searchButton_Click(object i_Sender, EventArgs i_EventArgs)
         {
             ISet<User> usersToPresent = new HashSet<User>();
 
@@ -152,16 +156,16 @@ namespace facebookApi
                 }
             }
 
-            m_filteredFriends.Items.Clear();
+            m_FilteredFriends.Items.Clear();
 
             foreach (User userToPresent in usersToPresent) {
-                m_filteredFriends.Items.Add(userToPresent.Name);
+                m_FilteredFriends.Items.Add(userToPresent.Name);
             }
         }
 
-        private void postButton_Click(object sender, EventArgs e)
+        private void postButton_Click(object i_Sender, EventArgs i_EventArgs)
         {
-            string postText = m_postTextBox.Text;
+            string postText = m_PostTextBox.Text;
 
             if (string.IsNullOrEmpty(postText)) {
                 MessageBox.Show("Adding an empty post is not allowed!!!");
@@ -171,18 +175,13 @@ namespace facebookApi
             }
         }
 
-        private void linkFriends_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            fetchFriends();
-        }
-
         private void fetchFriends()
         {
-            m_friendslistBox.Items.Clear();
-            m_friendslistBox.DisplayMember = "Name";
+            m_FriendslistBox.Items.Clear();
+            m_FriendslistBox.DisplayMember = "Name";
             foreach (User friend in m_LoggedInUser.Friends)
             {
-                m_friendslistBox.Items.Add(friend);
+                m_FriendslistBox.Items.Add(friend);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
@@ -192,77 +191,77 @@ namespace facebookApi
             }
         }
 
-        private void friendslistBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void friendslistBox_SelectedIndexChanged(object i_Sender, EventArgs i_EventArgs)
         {
             displaySelectedFriend();
         }
 
         private void displaySelectedFriend()
         {
-            if (m_friendslistBox.SelectedItems.Count == 1)
+            if (m_FriendslistBox.SelectedItems.Count == 1)
             {
-                User selectedFriend = m_friendslistBox.SelectedItem as User;
+                User selectedFriend = m_FriendslistBox.SelectedItem as User;
 
                 if (selectedFriend.PictureNormalURL != null)
                 {
-                    m_friendPictureBox.LoadAsync(selectedFriend.PictureNormalURL);
+                    m_FriendPictureBox.LoadAsync(selectedFriend.PictureNormalURL);
                 }
             }
         }
 
-        private void religion_CheckedChanged(object sender, EventArgs e)
+        private void religion_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            filterCheckBoxChanged<eReligion>(sender, r_religionsToPresent);
+            filterCheckBoxChanged<eReligion>(i_Sender, r_religionsToPresent);
         }
 
-        private void gender_CheckedChanged(object sender, EventArgs e)
+        private void gender_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            filterCheckBoxChanged<User.eGender>(sender, r_genderToPresent);
+            filterCheckBoxChanged<User.eGender>(i_Sender, r_genderToPresent);
         }
 
-        private void relationshipStatus_CheckedChanged(object sender, EventArgs e)
+        private void relationshipStatus_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            filterCheckBoxChanged<User.eRelationshipStatus>(sender, r_relationshipStatusesToPresent);
+            filterCheckBoxChanged<User.eRelationshipStatus>(i_Sender, r_relationshipStatusesToPresent);
         }
 
-        private void filterCheckBoxChanged<T>(object sender , ISet<T> setToEdit) where T : struct, System.IConvertible 
+        private void filterCheckBoxChanged<T>(object i_Sender , ISet<T> i_SetToEdit) where T : struct, System.IConvertible 
         {
-            CheckBox checkbox = (CheckBox)sender;
+            CheckBox checkbox = (CheckBox)i_Sender;
 
             T value = (T)Enum.Parse(typeof(T), checkbox.Text);
 
             if (checkbox.Checked)
             {
-                setToEdit.Add(value);
+                i_SetToEdit.Add(value);
             }
             else
             {
-                setToEdit.Remove(value);
+                i_SetToEdit.Remove(value);
             }
         }
 
-        private void generateCheckBoxesandAddToGroupBox<T>(List<T> a, GroupBox groupBox, EventHandler eventHandler) where T : struct, System.IConvertible
+        private void generateCheckBoxesAndAddToGroupBox<T>(List<T> i_CheckBoxValues, GroupBox i_GroupBox, EventHandler i_EventHandler) where T : struct, System.IConvertible
         {
-            int checkBoxLocationX = 6;
-            int checkBoxLocationYStart = 21;
-
             int i = 0;
 
-            foreach (T value in a)
+            foreach (T value in i_CheckBoxValues)
             {
                 CheckBox checkBox = new CheckBox();
                 checkBox.AutoSize = true;
-                checkBox.Location = new Point(checkBoxLocationX, checkBoxLocationYStart + (i * 23));
+                checkBox.Location = new Point(k_CheckBoxLocationX, k_CheckBoxLocationYStart + (i * k_CheckBoxLocationYDiff));
                 checkBox.Name = value.ToString();
                 checkBox.TabIndex = i + 1;
                 checkBox.Text = value.ToString();
                 checkBox.UseVisualStyleBackColor = true;
-                checkBox.CheckedChanged += eventHandler;
-                groupBox.Controls.Add(checkBox);
+                checkBox.CheckedChanged += i_EventHandler;
+                i_GroupBox.Controls.Add(checkBox);
                 i++;
             }
         }
 
-
+        private void fetchFriendsButton_Click(object i_Sender, EventArgs i_EventArgs)
+        {
+            fetchFriends();
+        }
     }
 }

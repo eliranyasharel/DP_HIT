@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{FCC0222D-D6F6-4C1B-9516-CC7D7187B54F}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="facebookApi/MainAppForm.cs">
     <Files>
-      <File FileName="facebookApi/MainAppForm.Designer.cs" Line="74" Column="30" />
-      <File FileName="facebookApi/MainAppForm.cs" Line="169" Column="1" />
+      <File FileName="facebookApi/Program.cs" Line="1" Column="1" />
+      <File FileName="facebookApi/MainAppForm.Designer.cs" Line="288" Column="55" />
+      <File FileName="facebookApi/MainAppForm.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
