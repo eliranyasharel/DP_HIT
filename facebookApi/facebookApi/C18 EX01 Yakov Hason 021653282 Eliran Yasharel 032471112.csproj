@@ -63,7 +63,7 @@
     <Compile Include="GenderUserFilterHelper.cs" />
     <Compile Include="RelationshipStatusUserFilterHelper.cs" />
     <Compile Include="ReligionUserFilterHelper.cs" />
-    <Compile Include="UiUtils.cs" />
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="MainAppForm.resx">
       <DependentUpon>MainAppForm.cs</DependentUpon>
     </EmbeddedResource>
