@@ -19,9 +19,9 @@ namespace facebookApi
         // private const string k_ApplicationID = "228124338010525"; // Commented out so the grader will be able to use it if he/she wants
         private const string k_ApplicationID = "1450160541956417";
 
-        private readonly ISet<eReligion> r_religionsToPresent = new HashSet<eReligion>();
-        private readonly ISet<User.eGender> r_genderToPresent = new HashSet<User.eGender>();
-        private readonly ISet<User.eRelationshipStatus> r_relationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
+        private readonly ISet<eReligion> r_ReligionsToPresent = new HashSet<eReligion>();
+        private readonly ISet<User.eGender> r_GenderToPresent = new HashSet<User.eGender>();
+        private readonly ISet<User.eRelationshipStatus> r_RelationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
         private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
         private User m_LoggedInUser;
@@ -108,9 +108,9 @@ namespace facebookApi
         {
             ISet<User> usersToPresent = new HashSet<User>();
 
-            ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(m_LoggedInUser.Friends, r_religionsToPresent, new ReligionUserFilterHelper());
-            ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(m_LoggedInUser.Friends, r_genderToPresent, new GenderUserFilterHelper());
-            ISet<User> relationshipStatusFilteredUsers = Utils.GetFilteredUsers<User.eRelationshipStatus>(m_LoggedInUser.Friends, r_relationshipStatusesToPresent, new RelationshipStatusUserFilterHelper());
+            ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(m_LoggedInUser.Friends, r_ReligionsToPresent, new ReligionUserFilterHelper());
+            ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(m_LoggedInUser.Friends, r_GenderToPresent, new GenderUserFilterHelper());
+            ISet<User> relationshipStatusFilteredUsers = Utils.GetFilteredUsers<User.eRelationshipStatus>(m_LoggedInUser.Friends, r_RelationshipStatusesToPresent, new RelationshipStatusUserFilterHelper());
 
             m_FilteredFriends.Items.Clear();
 
@@ -197,17 +197,17 @@ namespace facebookApi
 
         private void religion_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            Utils.CheckBoxChanged<eReligion>((CheckBox)i_Sender, r_religionsToPresent);
+            Utils.CheckBoxChanged<eReligion>((CheckBox)i_Sender, r_ReligionsToPresent);
         }
 
         private void gender_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            Utils.CheckBoxChanged<User.eGender>((CheckBox)i_Sender, r_genderToPresent);
+            Utils.CheckBoxChanged<User.eGender>((CheckBox)i_Sender, r_GenderToPresent);
         }
 
         private void relationshipStatus_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            Utils.CheckBoxChanged<User.eRelationshipStatus>((CheckBox)i_Sender, r_relationshipStatusesToPresent);
+            Utils.CheckBoxChanged<User.eRelationshipStatus>((CheckBox)i_Sender, r_RelationshipStatusesToPresent);
         }
 
         private void fetchFriendsButton_Click(object i_Sender, EventArgs i_EventArgs)

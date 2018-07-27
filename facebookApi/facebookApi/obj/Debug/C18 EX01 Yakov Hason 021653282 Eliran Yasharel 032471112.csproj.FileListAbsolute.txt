@@ -18,14 +18,14 @@ C:/Users/kobis/Dropbox/facebookApi/facebookApi/obj/Debug/facebookApi.pdb
 /Users/eliran/DP_HIT/facebookApi/facebookApi/obj/Debug/C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CoreCompileInputs.cache
 /Users/eliran/DP_HIT/facebookApi/facebookApi/obj/Debug/facebookApi.exe
 /Users/eliran/DP_HIT/facebookApi/facebookApi/obj/Debug/facebookApi.pdb
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\bin\Debug\facebookApi.exe.config
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\bin\Debug\facebookApi.exe
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\bin\Debug\facebookApi.pdb
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csprojAssemblyReference.cache
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.MainAppForm.resources
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.Properties.Resources.resources
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.GenerateResource.cache
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CoreCompileInputs.cache
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CopyComplete
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.exe
-C:\Users\Admin\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.pdb
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/bin/Debug/facebookApi.exe.config
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/bin/Debug/facebookApi.exe
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/bin/Debug/facebookApi.pdb
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csprojAssemblyReference.cache
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/facebookApi.MainAppForm.resources
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/facebookApi.Properties.Resources.resources
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.GenerateResource.cache
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CoreCompileInputs.cache
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/C18 EX01 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CopyComplete
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/facebookApi.exe
+C:/Users/Admin/DP_HIT/facebookApi/facebookApi/obj/Debug/facebookApi.pdb
