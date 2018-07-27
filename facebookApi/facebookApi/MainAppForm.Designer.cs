@@ -162,12 +162,12 @@ namespace facebookApi
             this.m_FilteredFriends.Size = new System.Drawing.Size(125, 196);
             this.m_FilteredFriends.TabStop = false;
             // 
-            // m_filtersHeadlineLabel
+            // m_FiltersHeadlineLabel
             // 
             this.m_FiltersHeadlineLabel.AutoSize = true;
             this.m_FiltersHeadlineLabel.Location = new System.Drawing.Point(783, 26);
             this.m_FiltersHeadlineLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.m_FiltersHeadlineLabel.Name = "m_filtersHeadlineLabel";
+            this.m_FiltersHeadlineLabel.Name = "m_FiltersHeadlineLabel";
             this.m_FiltersHeadlineLabel.Size = new System.Drawing.Size(155, 17);
             this.m_FiltersHeadlineLabel.Text = "Please select your filter";
             // 
@@ -260,7 +260,7 @@ namespace facebookApi
             // m_PostLabel
             // 
             this.m_PostLabel.AutoSize = true;
-            this.m_PostLabel.Location = new System.Drawing.Point(135, 270);
+            this.m_PostLabel.Location = new System.Drawing.Point(150, 270);
             this.m_PostLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_PostLabel.Name = "m_PostLabel";
             this.m_PostLabel.Size = new System.Drawing.Size(55, 17);
@@ -269,20 +269,19 @@ namespace facebookApi
             // m_PostTextBox
             // 
             this.m_PostTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.m_PostTextBox.Location = new System.Drawing.Point(135, 290);
+            this.m_PostTextBox.Location = new System.Drawing.Point(150, 290);
             this.m_PostTextBox.Name = "m_PostTextBox";
             this.m_PostTextBox.Size = new System.Drawing.Size(300, 300);
             this.m_PostTextBox.Multiline = true;
             this.m_PostTextBox.TabIndex = 4;
             this.m_PostTextBox.TabStop = true;
-
             // 
             // m_PostButton
             // 
             this.m_PostButton.AutoSize = true;
             this.m_PostButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.m_PostButton.Enabled = false;
-            this.m_PostButton.Location = new System.Drawing.Point(135, 600);
+            this.m_PostButton.Location = new System.Drawing.Point(150, 600);
             this.m_PostButton.Margin = new System.Windows.Forms.Padding(4);
             this.m_PostButton.Name = "m_PostButton";
             this.m_PostButton.Size = new System.Drawing.Size(53, 27);

@@ -57,14 +57,6 @@
     <Compile Include="MainAppForm.Designer.cs">
       <DependentUpon>MainAppForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logic\FacebookUser.cs" />
-    <Compile Include="Logic\first_name.cs" />
-    <Compile Include="Logic\RelationStatusTest.cs" />
-    <Compile Include="Logic\ReligionTest.cs" />
-    <Compile Include="Logic\UesrReligion.cs" />
-    <Compile Include="Logic\UserGender.cs" />
-    <Compile Include="Logic\UserRelationshipStatus.cs" />
-    <Compile Include="Logic\UserTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainAppForm.resx">

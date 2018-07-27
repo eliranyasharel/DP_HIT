@@ -71,19 +71,6 @@ namespace facebookApi
 
         }
 
-        private void displayAllFriends()
-        {
-            foreach (User friend in m_LoggedInUser.Friends)
-            {
-                friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
-            }
-
-            if (m_LoggedInUser.Friends.Count == 0)
-            {
-                MessageBox.Show("No Friends to retrieve :(");
-            }
-        }
-
         private void flipControls()
         {
             m_LoggedInUserPictureBox.Visible = !m_LoggedInUserPictureBox.Visible;
