@@ -24,7 +24,7 @@ namespace facebookApi
         private Label m_UserNameLabel;
         private BindingSource m_FriendsBindingSource;
         private PictureBox m_FriendPictureBox;
-        private ListBox m_FriendslistBox;
+        private ListBox m_FriendsListBox;
         private Label m_ResultsLabel;
         private Label m_PostLabel;
         private TextBox m_PostTextBox;
@@ -52,7 +52,7 @@ namespace facebookApi
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             this.m_LoginButton = new System.Windows.Forms.Button();
             this.m_LogoutButton = new System.Windows.Forms.Button();
             this.m_UserDetailsBox = new System.Windows.Forms.GroupBox();
@@ -64,9 +64,9 @@ namespace facebookApi
             this.m_RelationshipStatusFilterGroupBox = new System.Windows.Forms.GroupBox();
             this.m_ReligionFilterGroupBox = new System.Windows.Forms.GroupBox();
             this.m_GenderFilterGroupBox = new System.Windows.Forms.GroupBox();
-            this.m_FriendsBindingSource = new System.Windows.Forms.BindingSource(this.m_components);
+            this.m_FriendsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.m_FriendPictureBox = new System.Windows.Forms.PictureBox();
-            this.m_FriendslistBox = new System.Windows.Forms.ListBox();
+            this.m_FriendsListBox = new System.Windows.Forms.ListBox();
             this.m_ResultsLabel = new System.Windows.Forms.Label();
             this.m_PostLabel = new System.Windows.Forms.Label();
             this.m_PostTextBox = new System.Windows.Forms.TextBox();
@@ -87,7 +87,6 @@ namespace facebookApi
             this.m_LoginButton.Name = "m_LoginButton";
             this.m_LoginButton.Size = new System.Drawing.Size(53, 27);
             this.m_LoginButton.TabIndex = 0;
-            this.m_LoginButton.TabStop = true;
             this.m_LoginButton.Text = "Login";
             this.m_LoginButton.UseVisualStyleBackColor = true;
             this.m_LoginButton.Click += new System.EventHandler(this.loginButton_Click);
@@ -102,25 +101,9 @@ namespace facebookApi
             this.m_LogoutButton.Name = "m_LogoutButton";
             this.m_LogoutButton.Size = new System.Drawing.Size(62, 27);
             this.m_LogoutButton.TabIndex = 1;
-            this.m_LogoutButton.TabStop = true;
             this.m_LogoutButton.Text = "Logout";
             this.m_LogoutButton.UseVisualStyleBackColor = true;
             this.m_LogoutButton.Click += new System.EventHandler(this.logoutButton_Click);
-            // 
-            // m_FetchFriendsButton
-            // 
-            this.m_FetchFriendsButton.AutoSize = true;
-            this.m_FetchFriendsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.m_FetchFriendsButton.Enabled = false;
-            this.m_FetchFriendsButton.Location = new System.Drawing.Point(23, 96);
-            this.m_FetchFriendsButton.Margin = new System.Windows.Forms.Padding(4);
-            this.m_FetchFriendsButton.Name = "m_FetchFriendsButton";
-            this.m_FetchFriendsButton.Size = new System.Drawing.Size(62, 27);
-            this.m_FetchFriendsButton.TabIndex = 2;
-            this.m_FetchFriendsButton.TabStop = true;
-            this.m_FetchFriendsButton.Text = "Fetch Friends";
-            this.m_FetchFriendsButton.UseVisualStyleBackColor = true;
-            this.m_FetchFriendsButton.Click += new System.EventHandler(this.fetchFriendsButton_Click);
             // 
             // m_UserDetailsBox
             // 
@@ -132,6 +115,7 @@ namespace facebookApi
             this.m_UserDetailsBox.Name = "m_UserDetailsBox";
             this.m_UserDetailsBox.Padding = new System.Windows.Forms.Padding(4);
             this.m_UserDetailsBox.Size = new System.Drawing.Size(169, 218);
+            this.m_UserDetailsBox.TabIndex = 10;
             this.m_UserDetailsBox.TabStop = false;
             this.m_UserDetailsBox.Text = "User Details";
             // 
@@ -142,8 +126,7 @@ namespace facebookApi
             this.m_UserNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_UserNameLabel.Name = "m_UserNameLabel";
             this.m_UserNameLabel.Size = new System.Drawing.Size(79, 17);
-            this.m_UserNameLabel.Text = "User Name";
-            this.m_UserNameLabel.TabStop = false;
+            this.m_UserNameLabel.TabIndex = 0;
             // 
             // m_LoggedInUserPictureBox
             // 
@@ -151,15 +134,18 @@ namespace facebookApi
             this.m_LoggedInUserPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.m_LoggedInUserPictureBox.Name = "m_LoggedInUserPictureBox";
             this.m_LoggedInUserPictureBox.Size = new System.Drawing.Size(133, 134);
+            this.m_LoggedInUserPictureBox.TabIndex = 1;
             this.m_LoggedInUserPictureBox.TabStop = false;
             // 
             // m_FilteredFriends
             // 
             this.m_FilteredFriends.FormattingEnabled = true;
+            this.m_FilteredFriends.ItemHeight = 16;
             this.m_FilteredFriends.Location = new System.Drawing.Point(827, 455);
             this.m_FilteredFriends.Margin = new System.Windows.Forms.Padding(4);
             this.m_FilteredFriends.Name = "m_FilteredFriends";
             this.m_FilteredFriends.Size = new System.Drawing.Size(125, 196);
+            this.m_FilteredFriends.TabIndex = 9;
             this.m_FilteredFriends.TabStop = false;
             // 
             // m_FiltersHeadlineLabel
@@ -169,6 +155,7 @@ namespace facebookApi
             this.m_FiltersHeadlineLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_FiltersHeadlineLabel.Name = "m_FiltersHeadlineLabel";
             this.m_FiltersHeadlineLabel.Size = new System.Drawing.Size(155, 17);
+            this.m_FiltersHeadlineLabel.TabIndex = 8;
             this.m_FiltersHeadlineLabel.Text = "Please select your filter";
             // 
             // m_SearchButton
@@ -181,7 +168,6 @@ namespace facebookApi
             this.m_SearchButton.Name = "m_SearchButton";
             this.m_SearchButton.Size = new System.Drawing.Size(63, 27);
             this.m_SearchButton.TabIndex = 3;
-            this.m_SearchButton.TabStop = true;
             this.m_SearchButton.Text = "Search";
             this.m_SearchButton.UseVisualStyleBackColor = true;
             this.m_SearchButton.Click += new System.EventHandler(this.searchButton_Click);
@@ -197,6 +183,7 @@ namespace facebookApi
             this.m_RelationshipStatusFilterGroupBox.Name = "m_RelationshipStatusFilterGroupBox";
             this.m_RelationshipStatusFilterGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.m_RelationshipStatusFilterGroupBox.Size = new System.Drawing.Size(180, 123);
+            this.m_RelationshipStatusFilterGroupBox.TabIndex = 6;
             this.m_RelationshipStatusFilterGroupBox.TabStop = false;
             this.m_RelationshipStatusFilterGroupBox.Text = "Relationship Status Filter";
             // 
@@ -211,6 +198,7 @@ namespace facebookApi
             this.m_ReligionFilterGroupBox.Name = "m_ReligionFilterGroupBox";
             this.m_ReligionFilterGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.m_ReligionFilterGroupBox.Size = new System.Drawing.Size(120, 123);
+            this.m_ReligionFilterGroupBox.TabIndex = 5;
             this.m_ReligionFilterGroupBox.TabStop = false;
             this.m_ReligionFilterGroupBox.Text = "Religion Filter";
             // 
@@ -225,6 +213,7 @@ namespace facebookApi
             this.m_GenderFilterGroupBox.Name = "m_GenderFilterGroupBox";
             this.m_GenderFilterGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.m_GenderFilterGroupBox.Size = new System.Drawing.Size(120, 123);
+            this.m_GenderFilterGroupBox.TabIndex = 7;
             this.m_GenderFilterGroupBox.TabStop = false;
             this.m_GenderFilterGroupBox.Text = "Gender Filter";
             // 
@@ -235,18 +224,20 @@ namespace facebookApi
             this.m_FriendPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.m_FriendPictureBox.Name = "m_FriendPictureBox";
             this.m_FriendPictureBox.Size = new System.Drawing.Size(140, 114);
+            this.m_FriendPictureBox.TabIndex = 4;
             this.m_FriendPictureBox.TabStop = false;
             // 
-            // m_FriendslistBox
+            // m_FriendsListBox
             // 
-            this.m_FriendslistBox.FormattingEnabled = true;
-            this.m_FriendslistBox.ItemHeight = 16;
-            this.m_FriendslistBox.Location = new System.Drawing.Point(341, 26);
-            this.m_FriendslistBox.Margin = new System.Windows.Forms.Padding(4);
-            this.m_FriendslistBox.Name = "m_FriendslistBox";
-            this.m_FriendslistBox.Size = new System.Drawing.Size(125, 180);
-            this.m_FriendslistBox.TabStop = false;
-            this.m_FriendslistBox.SelectedIndexChanged += new System.EventHandler(this.friendslistBox_SelectedIndexChanged);
+            this.m_FriendsListBox.FormattingEnabled = true;
+            this.m_FriendsListBox.ItemHeight = 16;
+            this.m_FriendsListBox.Location = new System.Drawing.Point(341, 26);
+            this.m_FriendsListBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_FriendsListBox.Name = "m_FriendsListBox";
+            this.m_FriendsListBox.Size = new System.Drawing.Size(125, 180);
+            this.m_FriendsListBox.TabIndex = 3;
+            this.m_FriendsListBox.TabStop = false;
+            this.m_FriendsListBox.SelectedIndexChanged += new System.EventHandler(this.friendslistBox_SelectedIndexChanged);
             // 
             // m_ResultsLabel
             // 
@@ -255,6 +246,7 @@ namespace facebookApi
             this.m_ResultsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_ResultsLabel.Name = "m_ResultsLabel";
             this.m_ResultsLabel.Size = new System.Drawing.Size(55, 17);
+            this.m_ResultsLabel.TabIndex = 2;
             this.m_ResultsLabel.Text = "Results";
             // 
             // m_PostLabel
@@ -263,18 +255,18 @@ namespace facebookApi
             this.m_PostLabel.Location = new System.Drawing.Point(150, 270);
             this.m_PostLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_PostLabel.Name = "m_PostLabel";
-            this.m_PostLabel.Size = new System.Drawing.Size(55, 17);
+            this.m_PostLabel.Size = new System.Drawing.Size(62, 17);
+            this.m_PostLabel.TabIndex = 11;
             this.m_PostLabel.Text = "Post text";
             // 
             // m_PostTextBox
             // 
             this.m_PostTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_PostTextBox.Location = new System.Drawing.Point(150, 290);
+            this.m_PostTextBox.Multiline = true;
             this.m_PostTextBox.Name = "m_PostTextBox";
             this.m_PostTextBox.Size = new System.Drawing.Size(300, 300);
-            this.m_PostTextBox.Multiline = true;
             this.m_PostTextBox.TabIndex = 4;
-            this.m_PostTextBox.TabStop = true;
             // 
             // m_PostButton
             // 
@@ -284,12 +276,25 @@ namespace facebookApi
             this.m_PostButton.Location = new System.Drawing.Point(150, 600);
             this.m_PostButton.Margin = new System.Windows.Forms.Padding(4);
             this.m_PostButton.Name = "m_PostButton";
-            this.m_PostButton.Size = new System.Drawing.Size(53, 27);
+            this.m_PostButton.Size = new System.Drawing.Size(46, 27);
             this.m_PostButton.TabIndex = 5;
-            this.m_PostButton.TabStop = true;
             this.m_PostButton.Text = "Post";
             this.m_PostButton.UseVisualStyleBackColor = true;
             this.m_PostButton.Click += new System.EventHandler(this.postButton_Click);
+            // 
+            // m_FetchFriendsButton
+            // 
+            this.m_FetchFriendsButton.AutoSize = true;
+            this.m_FetchFriendsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.m_FetchFriendsButton.Enabled = false;
+            this.m_FetchFriendsButton.Location = new System.Drawing.Point(23, 96);
+            this.m_FetchFriendsButton.Margin = new System.Windows.Forms.Padding(4);
+            this.m_FetchFriendsButton.Name = "m_FetchFriendsButton";
+            this.m_FetchFriendsButton.Size = new System.Drawing.Size(104, 27);
+            this.m_FetchFriendsButton.TabIndex = 2;
+            this.m_FetchFriendsButton.Text = "Fetch Friends";
+            this.m_FetchFriendsButton.UseVisualStyleBackColor = true;
+            this.m_FetchFriendsButton.Click += new System.EventHandler(this.fetchFriendsButton_Click);
             // 
             // MainAppForm
             // 
@@ -297,11 +302,11 @@ namespace facebookApi
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(972, 478);
+            this.ClientSize = new System.Drawing.Size(1049, 478);
             this.Controls.Add(this.m_LoginButton);
             this.Controls.Add(this.m_LogoutButton);
             this.Controls.Add(this.m_ResultsLabel);
-            this.Controls.Add(this.m_FriendslistBox);
+            this.Controls.Add(this.m_FriendsListBox);
             this.Controls.Add(this.m_FriendPictureBox);
             this.Controls.Add(this.m_ReligionFilterGroupBox);
             this.Controls.Add(this.m_RelationshipStatusFilterGroupBox);
@@ -328,6 +333,8 @@ namespace facebookApi
         }
 
         #endregion
+
+        private IContainer components;
     }
 }
 

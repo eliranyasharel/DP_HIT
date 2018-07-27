@@ -32,8 +32,6 @@ namespace facebookApi
 
         private void loginAndInit()
         {
-            m_FiltersHeadlineLabel.Visible = true;
-
             try
             {
                 LoginResult result = FacebookService.Login(k_ApplicationID, r_FaceboookPermissions);
@@ -54,8 +52,6 @@ namespace facebookApi
             {
                 MessageBox.Show(string.Format("Error with login: \n{0}", e.Message));
             }
-
-            m_FiltersHeadlineLabel.Visible = false;
         }
 
         private void fetchUserInfo()
@@ -67,19 +63,31 @@ namespace facebookApi
                 m_LoggedInUserPictureBox.Text = m_LoggedInUser.Statuses[0].Message;
             }
 
-            m_UserNameLabel.Text = string.Format("Welcome  {0} {1}", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
+            m_UserNameLabel.Text = string.Format("{0} {1}", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
 
+        }
+
+        private void removeUserInfo()
+        {
+            m_LoggedInUserPictureBox.Image = null;
+            m_LoggedInUserPictureBox.Text = null;
+            m_UserNameLabel.Text = null;
+        }
+
+        private void removeFriendsInfo()
+        {
+            m_FriendsListBox.Items.Clear();
+            m_FriendPictureBox.Image = null;
+            m_FilteredFriends.Items.Clear();
         }
 
         private void flipControls()
         {
-            m_LoggedInUserPictureBox.Visible = !m_LoggedInUserPictureBox.Visible;
             m_LoginButton.Enabled = !m_LoginButton.Enabled;
             m_LogoutButton.Enabled = !m_LogoutButton.Enabled;
             m_FetchFriendsButton.Enabled = !m_FetchFriendsButton.Enabled;
             m_PostButton.Enabled = !m_PostButton.Enabled;
             m_SearchButton.Enabled = !m_SearchButton.Enabled;
-            m_FriendPictureBox.Visible = !m_FriendPictureBox.Visible;
         }
 
         public MainAppForm()
@@ -102,8 +110,13 @@ namespace facebookApi
 
         private void postLogout()
         {
-            m_LoggedInUser = null;
-            flipControls();
+            if (m_LoggedInUser != null) // Workaround for a BUG in FacebookService.Logout which causes the callback to run twice
+            {
+                m_LoggedInUser = null;
+                removeUserInfo();
+                removeFriendsInfo();
+                flipControls();
+            }
         }
 
         private void searchButton_Click(object i_Sender, EventArgs i_EventArgs)
@@ -164,11 +177,12 @@ namespace facebookApi
 
         private void fetchFriends()
         {
-            m_FriendslistBox.Items.Clear();
-            m_FriendslistBox.DisplayMember = "Name";
+            m_FriendsListBox.Items.Clear();
+            m_FriendPictureBox.Image = null;
+            m_FriendsListBox.DisplayMember = "Name";
             foreach (User friend in m_LoggedInUser.Friends)
             {
-                m_FriendslistBox.Items.Add(friend);
+                m_FriendsListBox.Items.Add(friend);
                 friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
@@ -185,9 +199,9 @@ namespace facebookApi
 
         private void displaySelectedFriend()
         {
-            if (m_FriendslistBox.SelectedItems.Count == 1)
+            if (m_FriendsListBox.SelectedItems.Count == 1)
             {
-                User selectedFriend = m_FriendslistBox.SelectedItem as User;
+                User selectedFriend = m_FriendsListBox.SelectedItem as User;
 
                 if (selectedFriend.PictureNormalURL != null)
                 {
