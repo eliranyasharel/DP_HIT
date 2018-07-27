@@ -1,11 +1,9 @@
 ﻿using System.Windows.Forms;
 using System.ComponentModel;
 
-using System.Linq;
-
 namespace facebookApi
 {
-    partial class MainAppForm
+    public partial class MainAppForm
     {
         /// <summary>
         /// Required designer variable.
@@ -41,6 +39,7 @@ namespace facebookApi
             {
                 m_components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -337,4 +336,3 @@ namespace facebookApi
         private IContainer components;
     }
 }
-

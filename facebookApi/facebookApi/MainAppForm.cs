@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
-using FacebookWrapper;
 using System.Collections.Generic;
 using System.Linq;
-using System.Drawing;
+using FacebookWrapper.ObjectModel;
+using FacebookWrapper;
 
 namespace facebookApi
 {
-    public partial class MainAppForm : Form 
+    public partial class MainAppForm : Form
     {
         public enum eReligion
         {
@@ -17,11 +16,8 @@ namespace facebookApi
             Jewish
         }
 
-        private const int k_CheckBoxLocationX = 6;
-        private const int k_CheckBoxLocationYStart = 21;
-        private const int k_CheckBoxLocationYDiff = 23;
+        // private const string k_ApplicationID = "228124338010525"; // Commented out so the grader will be able to use it if he/she wants
         private const string k_ApplicationID = "1450160541956417";
-        //private const string k_ApplicationID = "228124338010525"; // Commented out so the grader will be able to use it if he/she wants
 
         private readonly ISet<eReligion> r_religionsToPresent = new HashSet<eReligion>();
         private readonly ISet<User.eGender> r_genderToPresent = new HashSet<User.eGender>();
@@ -29,6 +25,14 @@ namespace facebookApi
         private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
         private User m_LoggedInUser;
+
+        public MainAppForm()
+        {
+            InitializeComponent();
+            Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_RelationshipStatusFilterGroupBox, new EventHandler(relationshipStatus_CheckedChanged));
+            Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_ReligionFilterGroupBox, new EventHandler(religion_CheckedChanged));
+            Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_GenderFilterGroupBox, new EventHandler(gender_CheckedChanged));
+        }
 
         private void loginAndInit()
         {
@@ -46,7 +50,6 @@ namespace facebookApi
                 {
                     MessageBox.Show(string.Format("Error with login: \n{0}", result.ErrorMessage));
                 }
-
             }
             catch (Exception e)
             {
@@ -64,7 +67,6 @@ namespace facebookApi
             }
 
             m_UserNameLabel.Text = string.Format("{0} {1}", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
-
         }
 
         private void removeUserInfo()
@@ -90,27 +92,10 @@ namespace facebookApi
             m_SearchButton.Enabled = !m_SearchButton.Enabled;
         }
 
-        public MainAppForm()
-        {
-            InitializeComponent();
-            generateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_RelationshipStatusFilterGroupBox, new EventHandler(relationshipStatus_CheckedChanged));
-            generateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_ReligionFilterGroupBox, new EventHandler(religion_CheckedChanged));
-            generateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_GenderFilterGroupBox, new EventHandler(gender_CheckedChanged));
-        }
-
-        private void loginButton_Click(object i_Sender, EventArgs i_EventArgs)
-        {
-            loginAndInit();
-        }
-
-        private void logoutButton_Click(object i_Sender, EventArgs i_EventArgs)
-        {
-            FacebookService.Logout(postLogout);
-        }
-
         private void postLogout()
         {
-            if (m_LoggedInUser != null) // Workaround for a BUG in FacebookService.Logout which causes the callback to run twice
+            // Workaround for a BUG in FacebookService.Logout which causes the callback to run twice
+            if (m_LoggedInUser != null)
             {
                 m_LoggedInUser = null;
                 removeUserInfo();
@@ -119,57 +104,35 @@ namespace facebookApi
             }
         }
 
-        private void searchButton_Click(object i_Sender, EventArgs i_EventArgs)
+        private void searchFriends()
         {
             ISet<User> usersToPresent = new HashSet<User>();
 
-            foreach (eReligion religion in r_religionsToPresent) 
-            {
-                foreach(User friend in m_LoggedInUser.Friends) 
-                {
-                    if (friend.Religion != null && friend.Religion.Equals(religion.ToString())) 
-                    {
-                        usersToPresent.Add(friend);
-                    }
-                }
-            }
-
-            foreach (User.eGender gender in r_genderToPresent)
-            {
-                foreach (User friend in m_LoggedInUser.Friends)
-                {
-                    if (friend.Gender.Equals(gender))
-                    {
-                        usersToPresent.Add(friend);
-                    }
-                }
-            }
-
-            foreach (User.eRelationshipStatus relationshipStatus in r_relationshipStatusesToPresent)
-            {
-                foreach (User friend in m_LoggedInUser.Friends)
-                {
-                    if (friend.RelationshipStatus.Equals(relationshipStatus))
-                    {
-                        usersToPresent.Add(friend);
-                    }
-                }
-            }
+            ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(m_LoggedInUser.Friends, r_religionsToPresent, new ReligionUserFilterHelper());
+            ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(m_LoggedInUser.Friends, r_genderToPresent, new GenderUserFilterHelper());
+            ISet<User> relationshipStatusFilteredUsers = Utils.GetFilteredUsers<User.eRelationshipStatus>(m_LoggedInUser.Friends, r_relationshipStatusesToPresent, new RelationshipStatusUserFilterHelper());
 
             m_FilteredFriends.Items.Clear();
 
-            foreach (User userToPresent in usersToPresent) {
-                m_FilteredFriends.Items.Add(userToPresent.Name);
+            foreach (User friend in m_LoggedInUser.Friends)
+            {
+                if (religionFilteredUsers.Contains(friend) && genderFilteredUsers.Contains(friend) && relationshipStatusFilteredUsers.Contains(friend))
+                {
+                    m_FilteredFriends.Items.Add(friend.Name);
+                }
             }
         }
 
-        private void postButton_Click(object i_Sender, EventArgs i_EventArgs)
+        private void loadPost()
         {
             string postText = m_PostTextBox.Text;
 
-            if (string.IsNullOrEmpty(postText)) {
+            if (string.IsNullOrEmpty(postText))
+            {
                 MessageBox.Show("Adding an empty post is not allowed!!!");
-            } else {
+            }
+            else
+            {
                 Status postedStatus = m_LoggedInUser.PostStatus(postText);
                 MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
             }
@@ -192,11 +155,6 @@ namespace facebookApi
             }
         }
 
-        private void friendslistBox_SelectedIndexChanged(object i_Sender, EventArgs i_EventArgs)
-        {
-            displaySelectedFriend();
-        }
-
         private void displaySelectedFriend()
         {
             if (m_FriendsListBox.SelectedItems.Count == 1)
@@ -210,59 +168,53 @@ namespace facebookApi
             }
         }
 
+        #region UI Event Handlers
+
+        private void loginButton_Click(object i_Sender, EventArgs i_EventArgs)
+        {
+            loginAndInit();
+        }
+
+        private void logoutButton_Click(object i_Sender, EventArgs i_EventArgs)
+        {
+            FacebookService.Logout(postLogout);
+        }
+
+        private void searchButton_Click(object i_Sender, EventArgs i_EventArgs)
+        {
+            searchFriends();
+        }
+
+        private void postButton_Click(object i_Sender, EventArgs i_EventArgs)
+        {
+            loadPost();
+        }
+
+        private void friendslistBox_SelectedIndexChanged(object i_Sender, EventArgs i_EventArgs)
+        {
+            displaySelectedFriend();
+        }
+
         private void religion_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            filterCheckBoxChanged<eReligion>(i_Sender, r_religionsToPresent);
+            Utils.CheckBoxChanged<eReligion>((CheckBox)i_Sender, r_religionsToPresent);
         }
 
         private void gender_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            filterCheckBoxChanged<User.eGender>(i_Sender, r_genderToPresent);
+            Utils.CheckBoxChanged<User.eGender>((CheckBox)i_Sender, r_genderToPresent);
         }
 
         private void relationshipStatus_CheckedChanged(object i_Sender, EventArgs i_EventArgs)
         {
-            filterCheckBoxChanged<User.eRelationshipStatus>(i_Sender, r_relationshipStatusesToPresent);
-        }
-
-        private void filterCheckBoxChanged<T>(object i_Sender , ISet<T> i_SetToEdit) where T : struct, System.IConvertible 
-        {
-            CheckBox checkbox = (CheckBox)i_Sender;
-
-            T value = (T)Enum.Parse(typeof(T), checkbox.Text);
-
-            if (checkbox.Checked)
-            {
-                i_SetToEdit.Add(value);
-            }
-            else
-            {
-                i_SetToEdit.Remove(value);
-            }
-        }
-
-        private void generateCheckBoxesAndAddToGroupBox<T>(List<T> i_CheckBoxValues, GroupBox i_GroupBox, EventHandler i_EventHandler) where T : struct, System.IConvertible
-        {
-            int i = 0;
-
-            foreach (T value in i_CheckBoxValues)
-            {
-                CheckBox checkBox = new CheckBox();
-                checkBox.AutoSize = true;
-                checkBox.Location = new Point(k_CheckBoxLocationX, k_CheckBoxLocationYStart + (i * k_CheckBoxLocationYDiff));
-                checkBox.Name = value.ToString();
-                checkBox.TabIndex = i + 1;
-                checkBox.Text = value.ToString();
-                checkBox.UseVisualStyleBackColor = true;
-                checkBox.CheckedChanged += i_EventHandler;
-                i_GroupBox.Controls.Add(checkBox);
-                i++;
-            }
+            Utils.CheckBoxChanged<User.eRelationshipStatus>((CheckBox)i_Sender, r_relationshipStatusesToPresent);
         }
 
         private void fetchFriendsButton_Click(object i_Sender, EventArgs i_EventArgs)
         {
             fetchFriends();
         }
+
+        #endregion
     }
 }
