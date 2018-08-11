@@ -1,0 +1,11 @@
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX02 Yakov Hason 021653282 Eliran Yasharel 032471112.csprojAssemblyReference.cache
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.MainAppForm.resources
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.Properties.Resources.resources
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX02 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.GenerateResource.cache
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX02 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CoreCompileInputs.cache
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.exe
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\facebookApi.pdb
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\bin\Debug\facebookApi.exe.config
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\bin\Debug\facebookApi.exe
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\bin\Debug\facebookApi.pdb
+C:\Users\VM\DP_HIT\facebookApi\facebookApi\obj\Debug\C18 EX02 Yakov Hason 021653282 Eliran Yasharel 032471112.csproj.CopyComplete

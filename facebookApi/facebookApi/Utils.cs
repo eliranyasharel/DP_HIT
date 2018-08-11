@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Threading;
 using FacebookWrapper.ObjectModel;
 
 namespace facebookApi
@@ -41,21 +42,24 @@ namespace facebookApi
         /// <param name="i_EventHandler"></param>
         public static void GenerateCheckBoxesAndAddToGroupBox<T>(List<T> i_CheckBoxValues, GroupBox i_GroupBox, EventHandler i_EventHandler) where T : struct, System.IConvertible
         {
-            int i = 0;
-
-            foreach (T value in i_CheckBoxValues)
+            new Thread(() =>
             {
-                CheckBox checkBox = new CheckBox();
-                checkBox.AutoSize = true;
-                checkBox.Location = new Point(k_CheckBoxLocationX, k_CheckBoxLocationYStart + (i * k_CheckBoxLocationYDiff));
-                checkBox.Name = value.ToString();
-                checkBox.TabIndex = i + 1;
-                checkBox.Text = value.ToString();
-                checkBox.UseVisualStyleBackColor = true;
-                checkBox.CheckedChanged += i_EventHandler;
-                i_GroupBox.Controls.Add(checkBox);
-                i++;
-            }
+                int i = 0;
+
+                foreach (T value in i_CheckBoxValues)
+                {
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.AutoSize = true;
+                    checkBox.Location = new Point(k_CheckBoxLocationX, k_CheckBoxLocationYStart + (i * k_CheckBoxLocationYDiff));
+                    checkBox.Name = value.ToString();
+                    checkBox.TabIndex = i + 1;
+                    checkBox.Text = value.ToString();
+                    checkBox.UseVisualStyleBackColor = true;
+                    checkBox.CheckedChanged += i_EventHandler;
+                    i_GroupBox.Controls.Add(checkBox);
+                    i++;
+                }
+            }).Start(); 
         }
 
         /// <summary>
@@ -66,7 +70,7 @@ namespace facebookApi
         /// <param name="i_FilterSet"></param>
         /// <param name="i_UserFilterHelper"></param>
         /// <returns>A set of users that match the filter</returns>
-        public static ISet<User> GetFilteredUsers<T>(FacebookObjectCollection<User> i_UsersToFilter, ISet<T> i_FilterSet, IUserFilterHelper<T> i_UserFilterHelper) where T : struct, System.IConvertible
+        public static ISet<User> GetFilteredUsers<T>(List<User> i_UsersToFilter, ISet<T> i_FilterSet, IUserFilterHelper<T> i_UserFilterHelper) where T : struct, System.IConvertible
         {
             ISet<User> filteredUsers = new HashSet<User>();
 

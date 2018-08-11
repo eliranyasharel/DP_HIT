@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using FacebookWrapper.ObjectModel;
-using FacebookWrapper;
 
 namespace facebookApi
 {
@@ -24,11 +23,10 @@ namespace facebookApi
         private readonly ISet<User.eRelationshipStatus> r_RelationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
         private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
-        private User m_LoggedInUser;
-
         public MainAppForm()
         {
             InitializeComponent();
+
             Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_RelationshipStatusFilterGroupBox, new EventHandler(relationshipStatus_CheckedChanged));
             Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_ReligionFilterGroupBox, new EventHandler(religion_CheckedChanged));
             Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_GenderFilterGroupBox, new EventHandler(gender_CheckedChanged));
@@ -38,18 +36,9 @@ namespace facebookApi
         {
             try
             {
-                LoginResult result = FacebookService.Login(k_ApplicationID, r_FaceboookPermissions);
-
-                if (!string.IsNullOrEmpty(result.AccessToken))
-                {
-                    m_LoggedInUser = result.LoggedInUser;
-                    fetchUserInfo();
-                    flipControls();
-                }
-                else
-                {
-                    MessageBox.Show(string.Format("Error with login: \n{0}", result.ErrorMessage));
-                }
+                Singleton<FacebookHandler>.Instance.Login(k_ApplicationID, r_FaceboookPermissions);
+                fillUserInfo();
+                flipControls();
             }
             catch (Exception e)
             {
@@ -57,16 +46,18 @@ namespace facebookApi
             }
         }
 
-        private void fetchUserInfo()
+        private void fillUserInfo()
         {
-            m_LoggedInUserPictureBox.LoadAsync(m_LoggedInUser.PictureNormalURL);
+            m_LoggedInUserPictureBox.LoadAsync(Singleton<FacebookHandler>.Instance.GetLoggedInUserPicture());
 
-            if (m_LoggedInUser.Statuses != null && m_LoggedInUser.Statuses.Count > 0)
+            List<Status> userStatuses = Singleton<FacebookHandler>.Instance.GetLoggedInUserStatuses();
+
+            if (userStatuses != null && userStatuses.Count > 0)
             {
-                m_LoggedInUserPictureBox.Text = m_LoggedInUser.Statuses[0].Message;
+                m_LoggedInUserPictureBox.Text = userStatuses[0].Message;
             }
 
-            m_UserNameLabel.Text = string.Format("{0} {1}", m_LoggedInUser.FirstName, m_LoggedInUser.LastName);
+            m_UserNameLabel.Text = string.Format("{0} {1}", Singleton<FacebookHandler>.Instance.GetLoggedInUserFirstName(), Singleton<FacebookHandler>.Instance.GetLoggedInUserLastName());
         }
 
         private void removeUserInfo()
@@ -92,29 +83,25 @@ namespace facebookApi
             m_SearchButton.Enabled = !m_SearchButton.Enabled;
         }
 
-        private void postLogout()
+        private void logout()
         {
-            // Workaround for a BUG in FacebookService.Logout which causes the callback to run twice
-            if (m_LoggedInUser != null)
-            {
-                m_LoggedInUser = null;
-                removeUserInfo();
-                removeFriendsInfo();
-                flipControls();
-            }
+            Singleton<FacebookHandler>.Instance.Logout();
+            removeUserInfo();
+            removeFriendsInfo();
+            flipControls();
         }
 
         private void searchFriends()
         {
-            ISet<User> usersToPresent = new HashSet<User>();
+            List<User> friends = Singleton<FacebookHandler>.Instance.FetchFriends();
 
-            ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(m_LoggedInUser.Friends, r_ReligionsToPresent, new ReligionUserFilterHelper());
-            ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(m_LoggedInUser.Friends, r_GenderToPresent, new GenderUserFilterHelper());
-            ISet<User> relationshipStatusFilteredUsers = Utils.GetFilteredUsers<User.eRelationshipStatus>(m_LoggedInUser.Friends, r_RelationshipStatusesToPresent, new RelationshipStatusUserFilterHelper());
+            ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(friends, r_ReligionsToPresent, new ReligionUserFilterHelper());
+            ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(friends, r_GenderToPresent, new GenderUserFilterHelper());
+            ISet<User> relationshipStatusFilteredUsers = Utils.GetFilteredUsers<User.eRelationshipStatus>(friends, r_RelationshipStatusesToPresent, new RelationshipStatusUserFilterHelper());
 
             m_FilteredFriends.Items.Clear();
 
-            foreach (User friend in m_LoggedInUser.Friends)
+            foreach (User friend in friends)
             {
                 if (religionFilteredUsers.Contains(friend) && genderFilteredUsers.Contains(friend) && relationshipStatusFilteredUsers.Contains(friend))
                 {
@@ -125,16 +112,14 @@ namespace facebookApi
 
         private void loadPost()
         {
-            string postText = m_PostTextBox.Text;
-
-            if (string.IsNullOrEmpty(postText))
+            try
             {
-                MessageBox.Show("Adding an empty post is not allowed!!!");
-            }
-            else
-            {
-                Status postedStatus = m_LoggedInUser.PostStatus(postText);
+                Status postedStatus = Singleton<FacebookHandler>.Instance.LoadPost(m_PostTextBox.Text);
                 MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
@@ -143,13 +128,15 @@ namespace facebookApi
             m_FriendsListBox.Items.Clear();
             m_FriendPictureBox.Image = null;
             m_FriendsListBox.DisplayMember = "Name";
-            foreach (User friend in m_LoggedInUser.Friends)
+
+            List<User> friends = Singleton<FacebookHandler>.Instance.FetchFriends();
+
+            foreach (User friend in friends)
             {
                 m_FriendsListBox.Items.Add(friend);
-                friend.ReFetch(DynamicWrapper.eLoadOptions.Full);
             }
 
-            if (m_LoggedInUser.Friends.Count == 0)
+            if (friends.Count == 0)
             {
                 MessageBox.Show("No Friends to retrieve :(");
             }
@@ -177,7 +164,7 @@ namespace facebookApi
 
         private void logoutButton_Click(object i_Sender, EventArgs i_EventArgs)
         {
-            FacebookService.Logout(postLogout);
+            logout();
         }
 
         private void searchButton_Click(object i_Sender, EventArgs i_EventArgs)
