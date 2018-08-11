@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace facebookApi
 {
@@ -25,7 +22,8 @@ namespace facebookApi
                     {
                         if (m_Instance == null)
                         {
-                            m_Instance = (T)Activator.CreateInstance(typeof(T));
+                            m_Instance = (T)typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0] , null).Invoke(null);
+
                         }
                     }
                 }
