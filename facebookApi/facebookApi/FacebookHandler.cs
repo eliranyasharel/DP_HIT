@@ -6,7 +6,7 @@ using FacebookWrapper.ObjectModel;
 
 namespace facebookApi
 {
-    public class FacebookHandler
+    public class FacebookHandler : IFacebookHandler
     {
         private User m_LoggedInUser;
 

@@ -22,8 +22,7 @@ namespace facebookApi
                     {
                         if (m_Instance == null)
                         {
-                            m_Instance = (T)typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0] , null).Invoke(null);
-
+                            m_Instance = (T)typeof(T).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new Type[0], null).Invoke(null);
                         }
                     }
                 }

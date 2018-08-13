@@ -23,6 +23,8 @@ namespace facebookApi
         private readonly ISet<User.eRelationshipStatus> r_RelationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
         private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
+        private readonly IFacebookHandler r_FacebookHandler = new FacebookHandlerWithPopupProxy();
+
         public MainAppForm()
         {
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace facebookApi
         {
             try
             {
-                Singleton<FacebookHandler>.Instance.Login(k_ApplicationID, r_FaceboookPermissions);
+                r_FacebookHandler.Login(k_ApplicationID, r_FaceboookPermissions);
                 fillUserInfo();
                 flipControls();
             }
@@ -48,16 +50,16 @@ namespace facebookApi
 
         private void fillUserInfo()
         {
-            m_LoggedInUserPictureBox.LoadAsync(Singleton<FacebookHandler>.Instance.GetLoggedInUserPicture());
+            m_LoggedInUserPictureBox.LoadAsync(r_FacebookHandler.GetLoggedInUserPicture());
 
-            List<Status> userStatuses = Singleton<FacebookHandler>.Instance.GetLoggedInUserStatuses();
+            List<Status> userStatuses = r_FacebookHandler.GetLoggedInUserStatuses();
 
             if (userStatuses != null && userStatuses.Count > 0)
             {
                 m_LoggedInUserPictureBox.Text = userStatuses[0].Message;
             }
 
-            m_UserNameLabel.Text = string.Format("{0} {1}", Singleton<FacebookHandler>.Instance.GetLoggedInUserFirstName(), Singleton<FacebookHandler>.Instance.GetLoggedInUserLastName());
+            m_UserNameLabel.Text = string.Format("{0} {1}", r_FacebookHandler.GetLoggedInUserFirstName(), r_FacebookHandler.GetLoggedInUserLastName());
         }
 
         private void removeUserInfo()
@@ -85,7 +87,7 @@ namespace facebookApi
 
         private void logout()
         {
-            Singleton<FacebookHandler>.Instance.Logout();
+            r_FacebookHandler.Logout();
             removeUserInfo();
             removeFriendsInfo();
             flipControls();
@@ -93,7 +95,7 @@ namespace facebookApi
 
         private void searchFriends()
         {
-            List<User> friends = Singleton<FacebookHandler>.Instance.FetchFriends();
+            List<User> friends = r_FacebookHandler.FetchFriends();
 
             ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(friends, r_ReligionsToPresent, new ReligionUserFilterHelper());
             ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(friends, r_GenderToPresent, new GenderUserFilterHelper());
@@ -114,7 +116,7 @@ namespace facebookApi
         {
             try
             {
-                Status postedStatus = Singleton<FacebookHandler>.Instance.LoadPost(m_PostTextBox.Text);
+                Status postedStatus = r_FacebookHandler.LoadPost(m_PostTextBox.Text);
                 MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
             }
             catch (Exception e)
@@ -129,7 +131,7 @@ namespace facebookApi
             m_FriendPictureBox.Image = null;
             m_FriendsListBox.DisplayMember = "Name";
 
-            List<User> friends = Singleton<FacebookHandler>.Instance.FetchFriends();
+            List<User> friends = r_FacebookHandler.FetchFriends();
 
             foreach (User friend in friends)
             {
