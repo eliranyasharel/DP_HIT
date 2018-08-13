@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Threading;
 using FacebookWrapper.ObjectModel;
 
 namespace facebookApi
@@ -42,24 +41,21 @@ namespace facebookApi
         /// <param name="i_EventHandler"></param>
         public static void GenerateCheckBoxesAndAddToGroupBox<T>(List<T> i_CheckBoxValues, GroupBox i_GroupBox, EventHandler i_EventHandler) where T : struct, System.IConvertible
         {
-            new Thread(() =>
-            {
-                int i = 0;
+            int i = 0;
 
-                foreach (T value in i_CheckBoxValues)
-                {
-                    CheckBox checkBox = new CheckBox();
-                    checkBox.AutoSize = true;
-                    checkBox.Location = new Point(k_CheckBoxLocationX, k_CheckBoxLocationYStart + (i * k_CheckBoxLocationYDiff));
-                    checkBox.Name = value.ToString();
-                    checkBox.TabIndex = i + 1;
-                    checkBox.Text = value.ToString();
-                    checkBox.UseVisualStyleBackColor = true;
-                    checkBox.CheckedChanged += i_EventHandler;
-                    i_GroupBox.Controls.Add(checkBox);
-                    i++;
-                }
-            }).Start(); 
+            foreach (T value in i_CheckBoxValues)
+            {
+                CheckBox checkBox = new CheckBox();
+                checkBox.AutoSize = true;
+                checkBox.Location = new Point(k_CheckBoxLocationX, k_CheckBoxLocationYStart + (i * k_CheckBoxLocationYDiff));
+                checkBox.Name = value.ToString();
+                checkBox.TabIndex = i + 1;
+                checkBox.Text = value.ToString();
+                checkBox.UseVisualStyleBackColor = true;
+                checkBox.CheckedChanged += i_EventHandler;
+                i_GroupBox.Controls.Add(checkBox);
+                i++;
+            } 
         }
 
         /// <summary>
