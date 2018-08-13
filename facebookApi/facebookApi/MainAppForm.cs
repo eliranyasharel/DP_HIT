@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using FacebookWrapper.ObjectModel;
+using System.ComponentModel;
 
 namespace facebookApi
 {
@@ -24,6 +25,14 @@ namespace facebookApi
         private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
         private readonly IFacebookHandler r_FacebookHandler = new FacebookHandlerWithPopupProxy();
+
+        private string FullName
+        {
+            set
+            {
+                m_UserNameLabel.Text = value;
+            }
+        }
 
         public MainAppForm()
         {
@@ -59,14 +68,14 @@ namespace facebookApi
                 m_LoggedInUserPictureBox.Text = userStatuses[0].Message;
             }
 
-            m_UserNameLabel.Text = string.Format("{0} {1}", r_FacebookHandler.GetLoggedInUserFirstName(), r_FacebookHandler.GetLoggedInUserLastName());
+            FullName = string.Format("{0} {1}", r_FacebookHandler.GetLoggedInUserFirstName(), r_FacebookHandler.GetLoggedInUserLastName());
         }
 
         private void removeUserInfo()
         {
             m_LoggedInUserPictureBox.Image = null;
             m_LoggedInUserPictureBox.Text = null;
-            m_UserNameLabel.Text = null;
+            FullName = null;
         }
 
         private void removeFriendsInfo()
