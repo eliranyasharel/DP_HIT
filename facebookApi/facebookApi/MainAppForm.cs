@@ -23,7 +23,7 @@ namespace facebookApi
         private readonly ISet<User.eRelationshipStatus> r_RelationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
         private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
-        private readonly IFacebookHandler r_FacebookHandler = new FacebookHandlerWithPopupProxy();
+        private readonly IFacebookHandler r_FacebookHandler = FacebookHandlerFactory.Create(FacebookHandlerFactory.eRunType.Release);
 
         private string FullName
         {

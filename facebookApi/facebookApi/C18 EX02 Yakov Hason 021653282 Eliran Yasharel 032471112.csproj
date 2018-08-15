@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FacebookHandlerFactory.cs" />
     <Compile Include="FacebookHandlerWithPopupProxy.cs" />
     <Compile Include="IFacebookHandler.cs" />
     <Compile Include="IUserFilterHelper.cs" />
