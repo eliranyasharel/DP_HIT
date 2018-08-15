@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using FacebookWrapper;
@@ -20,7 +21,7 @@ namespace facebookApi
 
             if (string.IsNullOrEmpty(result.AccessToken))
             {
-                // TODO - Throw exception
+                throw new Exception("Login to Facebook failed");
             }
 
             m_LoggedInUser = result.LoggedInUser;
@@ -44,8 +45,7 @@ namespace facebookApi
         {
             if (string.IsNullOrEmpty(i_PostText))
             {
-                // MessageBox.Show("Adding an empty post is not allowed!!!");
-                // TODO - throw exception
+                throw new Exception("Adding an empty post is not allowed!!!");
             }
 
             return m_LoggedInUser.PostStatus(i_PostText);
