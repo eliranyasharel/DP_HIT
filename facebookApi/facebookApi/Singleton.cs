@@ -6,7 +6,7 @@ namespace facebookApi
     public class Singleton<T> where T : class
     {
         private static volatile T m_Instance = null;
-        private static volatile object instanceLock = new object();
+        private static volatile object m_InstanceLock = new object();
 
         private Singleton()
         {
@@ -18,7 +18,7 @@ namespace facebookApi
             {
                 if (m_Instance == null)
                 {
-                    lock (instanceLock)
+                    lock (m_InstanceLock)
                     {
                         if (m_Instance == null)
                         {
