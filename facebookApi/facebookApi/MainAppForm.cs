@@ -105,9 +105,9 @@ namespace facebookApi
         {
             List<User> friends = r_FacebookHandler.FetchFriends();
 
-            ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(friends, r_ReligionsToPresent, new ReligionUserFilterHelper());
-            ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(friends, r_GenderToPresent, new GenderUserFilterHelper());
-            ISet<User> relationshipStatusFilteredUsers = Utils.GetFilteredUsers<User.eRelationshipStatus>(friends, r_RelationshipStatusesToPresent, new RelationshipStatusUserFilterHelper());
+            ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(friends, r_ReligionsToPresent, (user, religion) => user.Religion.Equals(religion));
+            ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(friends, r_GenderToPresent, (user, gender) => user.Gender.Equals(gender));
+            ISet<User> relationshipStatusFilteredUsers = Utils.GetFilteredUsers<User.eRelationshipStatus>(friends, r_RelationshipStatusesToPresent, (user, relationshipStatus) => user.RelationshipStatus.Equals(relationshipStatus));
 
             m_FilteredFriends.Items.Clear();
 

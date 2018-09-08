@@ -66,7 +66,7 @@ namespace facebookApi
         /// <param name="i_FilterSet"></param>
         /// <param name="i_UserFilterHelper"></param>
         /// <returns>A set of users that match the filter</returns>
-        public static ISet<User> GetFilteredUsers<T>(List<User> i_UsersToFilter, ISet<T> i_FilterSet, IUserFilterHelper<T> i_UserFilterHelper) where T : struct, System.IConvertible
+        public static ISet<User> GetFilteredUsers<T>(List<User> i_UsersToFilter, ISet<T> i_FilterSet, Func<User, T, bool> i_UserFilterHelper) where T : struct, System.IConvertible
         {
             ISet<User> filteredUsers = new HashSet<User>();
 
@@ -80,7 +80,7 @@ namespace facebookApi
                 {
                     foreach (T filter in i_FilterSet)
                     {
-                        if (i_UserFilterHelper.FilterApplies(user, filter))
+                        if (i_UserFilterHelper.Invoke(user, filter))
                         {
                             filteredUsers.Add(user);
                         }

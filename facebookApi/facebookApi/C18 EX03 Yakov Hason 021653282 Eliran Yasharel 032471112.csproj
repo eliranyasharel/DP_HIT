@@ -54,7 +54,6 @@
     <Compile Include="FacebookHandlerFactory.cs" />
     <Compile Include="FacebookHandlerWithPopupProxy.cs" />
     <Compile Include="IFacebookHandler.cs" />
-    <Compile Include="IUserFilterHelper.cs" />
     <Compile Include="FacebookHandler.cs" />
     <Compile Include="MainAppForm.cs">
       <SubType>Form</SubType>
@@ -64,9 +63,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GenderUserFilterHelper.cs" />
-    <Compile Include="RelationshipStatusUserFilterHelper.cs" />
-    <Compile Include="ReligionUserFilterHelper.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="MainAppForm.resx">
