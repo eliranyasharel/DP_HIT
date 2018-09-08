@@ -71,6 +71,7 @@ namespace facebookApi
             this.m_PostTextBox = new System.Windows.Forms.TextBox();
             this.m_PostButton = new System.Windows.Forms.Button();
             this.m_FetchFriendsButton = new System.Windows.Forms.Button();
+            this.m_RunTypeComboBox = new System.Windows.Forms.ComboBox();
             this.m_UserDetailsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggedInUserPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_FriendsBindingSource)).BeginInit();
@@ -124,7 +125,7 @@ namespace facebookApi
             this.m_UserNameLabel.Location = new System.Drawing.Point(8, 52);
             this.m_UserNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_UserNameLabel.Name = "m_UserNameLabel";
-            this.m_UserNameLabel.Size = new System.Drawing.Size(79, 17);
+            this.m_UserNameLabel.Size = new System.Drawing.Size(0, 17);
             this.m_UserNameLabel.TabIndex = 0;
             // 
             // m_LoggedInUserPictureBox
@@ -295,13 +296,23 @@ namespace facebookApi
             this.m_FetchFriendsButton.UseVisualStyleBackColor = true;
             this.m_FetchFriendsButton.Click += new System.EventHandler(this.fetchFriendsButton_Click);
             // 
+            // m_RunTypeComboBox
+            // 
+            this.m_RunTypeComboBox.FormattingEnabled = true;
+            this.m_RunTypeComboBox.Location = new System.Drawing.Point(23, 143);
+            this.m_RunTypeComboBox.Name = "runTypeComboBoxcomboBox";
+            this.m_RunTypeComboBox.Size = new System.Drawing.Size(88, 24);
+            this.m_RunTypeComboBox.TabIndex = 12;
+            this.m_RunTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.runTypeComboBox_SelectedIndexChanged);
+            // 
             // MainAppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1049, 478);
+            this.ClientSize = new System.Drawing.Size(1052, 478);
+            this.Controls.Add(this.m_RunTypeComboBox);
             this.Controls.Add(this.m_LoginButton);
             this.Controls.Add(this.m_LogoutButton);
             this.Controls.Add(this.m_ResultsLabel);
@@ -334,5 +345,6 @@ namespace facebookApi
         #endregion
 
         private IContainer components;
+        private ComboBox m_RunTypeComboBox;
     }
 }

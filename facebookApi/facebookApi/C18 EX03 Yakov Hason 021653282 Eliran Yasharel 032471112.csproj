@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FacebookHandlerFactory.cs" />
-    <Compile Include="FacebookHandlerWithPopupProxy.cs" />
+    <Compile Include="FacebookHandlerWithPopupDecorator.cs" />
     <Compile Include="IFacebookHandler.cs" />
     <Compile Include="FacebookHandler.cs" />
     <Compile Include="MainAppForm.cs">
@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RunType.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="MainAppForm.resx">

@@ -4,9 +4,14 @@ using FacebookWrapper.ObjectModel;
 
 namespace facebookApi
 {
-    public class FacebookHandlerWithPopupProxy : IFacebookHandler
+    public class FacebookHandlerWithPopupDecorator : IFacebookHandler
     {
-        private IFacebookHandler m_FacebookHandler = Singleton<FacebookHandler>.Instance;
+        private IFacebookHandler m_FacebookHandler;
+
+        public FacebookHandlerWithPopupDecorator(IFacebookHandler i_FacebookHandler)
+        {
+            m_FacebookHandler = i_FacebookHandler;
+        }
 
         public List<User> FetchFriends()
         {

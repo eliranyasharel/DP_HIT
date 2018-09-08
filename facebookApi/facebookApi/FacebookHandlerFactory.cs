@@ -1,15 +1,10 @@
 ﻿using System;
+using static facebookApi.RunType;
 
 namespace facebookApi
 {
     public static class FacebookHandlerFactory
     {
-        public enum eRunType
-        {
-            Debug,
-            Release
-        }
-
         public static IFacebookHandler Create(eRunType i_RunType)
         {
             IFacebookHandler facebookHandlerToReturn;
@@ -17,7 +12,7 @@ namespace facebookApi
             switch(i_RunType)
             {
                 case eRunType.Debug:
-                    facebookHandlerToReturn = new FacebookHandlerWithPopupProxy();
+                    facebookHandlerToReturn = new FacebookHandlerWithPopupDecorator(Singleton<FacebookHandler>.Instance);
                     break;
                 case eRunType.Release:
                     facebookHandlerToReturn = Singleton<FacebookHandler>.Instance;

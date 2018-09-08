@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using FacebookWrapper.ObjectModel;
+using static facebookApi.RunType;
 
 namespace facebookApi
 {
@@ -23,7 +24,7 @@ namespace facebookApi
         private readonly ISet<User.eRelationshipStatus> r_RelationshipStatusesToPresent = new HashSet<User.eRelationshipStatus>();
         private readonly string[] r_FaceboookPermissions = { "public_profile", "user_photos", "user_gender", "user_friends", "publish_actions" };
 
-        private readonly IFacebookHandler r_FacebookHandler = FacebookHandlerFactory.Create(FacebookHandlerFactory.eRunType.Release);
+        private IFacebookHandler m_FacebookHandler = FacebookHandlerFactory.Create(eRunType.Release);
 
         private string FullName
         {
@@ -33,20 +34,33 @@ namespace facebookApi
             }
         }
 
+        private void runTypeChanged(eRunType i_RunType)
+        {
+            m_FacebookHandler = FacebookHandlerFactory.Create(i_RunType);
+        }
+
         public MainAppForm()
         {
             InitializeComponent();
 
+            Singleton<RunType>.Instance.SubscribeToRunTypeChanged(runTypeChanged);
+
             Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eRelationshipStatus)).OfType<User.eRelationshipStatus>().ToList(), m_RelationshipStatusFilterGroupBox, new EventHandler(relationshipStatus_CheckedChanged));
             Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(eReligion)).OfType<eReligion>().ToList(), m_ReligionFilterGroupBox, new EventHandler(religion_CheckedChanged));
             Utils.GenerateCheckBoxesAndAddToGroupBox(Enum.GetValues(typeof(User.eGender)).OfType<User.eGender>().ToList(), m_GenderFilterGroupBox, new EventHandler(gender_CheckedChanged));
+
+            foreach(eRunType runType in Enum.GetValues(typeof(eRunType)))
+            {
+                m_RunTypeComboBox.Items.Add(runType);
+                m_RunTypeComboBox.SelectedIndex = 0;
+            }
         }
 
         private void loginAndInit()
         {
             try
             {
-                r_FacebookHandler.Login(k_ApplicationID, r_FaceboookPermissions);
+                m_FacebookHandler.Login(k_ApplicationID, r_FaceboookPermissions);
                 fillUserInfo();
                 flipControls();
             }
@@ -58,16 +72,16 @@ namespace facebookApi
 
         private void fillUserInfo()
         {
-            m_LoggedInUserPictureBox.LoadAsync(r_FacebookHandler.GetLoggedInUserPicture());
+            m_LoggedInUserPictureBox.LoadAsync(m_FacebookHandler.GetLoggedInUserPicture());
 
-            List<Status> userStatuses = r_FacebookHandler.GetLoggedInUserStatuses();
+            List<Status> userStatuses = m_FacebookHandler.GetLoggedInUserStatuses();
 
             if (userStatuses != null && userStatuses.Count > 0)
             {
                 m_LoggedInUserPictureBox.Text = userStatuses[0].Message;
             }
 
-            FullName = string.Format("{0} {1}", r_FacebookHandler.GetLoggedInUserFirstName(), r_FacebookHandler.GetLoggedInUserLastName());
+            FullName = string.Format("{0} {1}", m_FacebookHandler.GetLoggedInUserFirstName(), m_FacebookHandler.GetLoggedInUserLastName());
         }
 
         private void removeUserInfo()
@@ -95,7 +109,7 @@ namespace facebookApi
 
         private void logout()
         {
-            r_FacebookHandler.Logout();
+            m_FacebookHandler.Logout();
             removeUserInfo();
             removeFriendsInfo();
             flipControls();
@@ -103,7 +117,7 @@ namespace facebookApi
 
         private void searchFriends()
         {
-            List<User> friends = r_FacebookHandler.FetchFriends();
+            List<User> friends = m_FacebookHandler.FetchFriends();
 
             ISet<User> religionFilteredUsers = Utils.GetFilteredUsers<eReligion>(friends, r_ReligionsToPresent, (user, religion) => user.Religion.Equals(religion));
             ISet<User> genderFilteredUsers = Utils.GetFilteredUsers<User.eGender>(friends, r_GenderToPresent, (user, gender) => user.Gender.Equals(gender));
@@ -124,7 +138,7 @@ namespace facebookApi
         {
             try
             {
-                Status postedStatus = r_FacebookHandler.LoadPost(m_PostTextBox.Text);
+                Status postedStatus = m_FacebookHandler.LoadPost(m_PostTextBox.Text);
                 MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
             }
             catch (Exception e)
@@ -139,7 +153,7 @@ namespace facebookApi
             m_FriendPictureBox.Image = null;
             m_FriendsListBox.DisplayMember = "Name";
 
-            List<User> friends = r_FacebookHandler.FetchFriends();
+            List<User> friends = m_FacebookHandler.FetchFriends();
 
             foreach (User friend in friends)
             {
@@ -210,6 +224,11 @@ namespace facebookApi
         private void fetchFriendsButton_Click(object i_Sender, EventArgs i_EventArgs)
         {
             fetchFriends();
+        }
+
+        private void runTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Singleton<RunType>.Instance.RunTypeChanged((eRunType)m_RunTypeComboBox.SelectedItem);
         }
 
         #endregion
